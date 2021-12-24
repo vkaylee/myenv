@@ -1,0 +1,4 @@
+# Environment file
+.env
+# Intellij IDE
+.idea
