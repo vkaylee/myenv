@@ -33,3 +33,26 @@ setAlias(){
   echo "You can not use command '${aliasCommand}' as '${realCommand}' because '${aliasCommand}' was a command already! Please check with command 'which ${aliasCommand}' for more info"
   return 1
 }
+isRootUser(){
+  # Input: no inputs
+  # Return:
+  # 0: This is root
+  # 1: This is not root
+  local isRoot=1 # By default: this is not root account
+  # Check running as root
+  if test ${isRoot} -eq 1 && [ "${EUID}" -eq 0 ]; then
+    isRoot=0
+  fi
+
+  if test ${isRoot} -eq 1 && [ '0' == "$(id -u)" ]; then
+    isRoot=0
+  fi
+
+  return ${isRoot}
+}
+rootNeeded(){
+  if ! isRootUser > /dev/null 2>&1; then
+    echo "You must run as root!"
+    exit 1
+  fi
+}
