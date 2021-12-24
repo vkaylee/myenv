@@ -5,6 +5,8 @@
 # Take working directory
 workDir=$(dirname "$0")
 echo "Current directory of the file $0 is ${workDir}"
+# Load environments
+source "${workDir}/env.sh"
 # Load detect.sh script
 source "${workDir}/detect.sh"
 # aliases
