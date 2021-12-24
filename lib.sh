@@ -2,16 +2,29 @@
 # This function is used to check the existent command or not
 # It depends on which command
 hasCommand(){
+  # Input:
+  # $1: command string
+  # Return:
+  # 0: Has the command
+  # 1: Do not have the command
   local command=$1
   which "${command}" > /dev/null 2>&1
-  return $?
+  local statusCode=$?
+  if [ ${statusCode} -eq 1 ]; then
+    return 1 # Does not have the command
+  fi
+  return 0 # Has the command
 }
 setAlias(){
+  # Input:
+  # $1: The alias command that you want to register
+  # $2: The command string
+  # Return:
+  # 0: set ok
+  # 1: set failed
   local aliasCommand=$1
   local realCommand=$2
-  hasCommand "${aliasCommand}" > /dev/null 2>&1
-  local exitCode=$?
-  if [ ${exitCode} -eq 1 ]; then
+  if ! hasCommand "${aliasCommand}" > /dev/null 2>&1; then
     # shellcheck disable=SC2139
     alias "${aliasCommand}"="${realCommand}"
     echo "You can use command '${aliasCommand}' as '${realCommand}'"
