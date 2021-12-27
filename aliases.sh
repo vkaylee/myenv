@@ -4,4 +4,4 @@ workDir=$(dirname "$0")
 # Load lib
 source "${workDir}/lib.sh"
 # Alias for docker-compose
-setAlias 'dc' 'docker-compose'
+setAlias 'dkc' 'docker-compose'
