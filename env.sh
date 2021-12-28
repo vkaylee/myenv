@@ -6,5 +6,5 @@ if [ -r "${workDir}/.env" ]; then
   # shellcheck source=currentDir/.env
   source <(sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g" < "${workDir}/.env")
   set +a
-  echo "Some environments in .env have been set!"
+  echo "Some environments in ${workDir}/.env have been set!"
 fi
