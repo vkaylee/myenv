@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Take working directory
-workDir=$(dirname "$0")
+thisFilePath="$(readlink -f "${BASH_SOURCE[0]}")"
+workDir=$(dirname "${thisFilePath}")
 # Load lib
 source "${workDir}/lib.sh"
 # Alias for docker-compose
