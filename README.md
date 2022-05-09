@@ -43,3 +43,8 @@ Put to the `.zshrc` file
 
     # Load customize configuration myenv
     source "${HOME}/Documents/myenv/import.sh"
+
+### Load ENV
+
+if you want to set your ENV to every session when you create a new session
+Put all `ENV_KEY=ENV_VALUE` to the `.env` file
