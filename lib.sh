@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # This function is used to check the existent command or not
 # It depends on which command
 hasCommand(){

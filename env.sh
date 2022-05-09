@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # Take working directory
-thisFilePath="$(readlink -f "${BASH_SOURCE[0]}")"
+thisFilePath="$(readlink -f "${(%):-%x}")"
 workDir=$(dirname "${thisFilePath}")
 if [ -r "${workDir}/.env" ]; then
   set -a
