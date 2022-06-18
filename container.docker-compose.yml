@@ -1,0 +1,57 @@
+version: '3'
+services:
+  debian-bullseye: # Debian 11
+    image: debian:bullseye
+    command:
+      - sleep
+      - infinity
+    user: root
+  debian-buster: # Debian 10
+    image: debian:buster
+    command:
+      - sleep
+      - infinity
+    user: root
+  debian-stretch: # Debian 9
+    image: debian:stretch
+    command:
+      - sleep
+      - infinity
+    user: root
+  debian-jessie: # Debian 8
+    image: debian:jessie
+    command:
+      - sleep
+      - infinity
+    user: root
+  debian-wheezy: # Debian 7
+    image: debian:wheezy
+    command:
+      - sleep
+      - infinity
+    user: root
+  ubuntu-focal: # ubuntu 20.04 LTS
+    image: ubuntu:focal
+    command:
+      - sleep
+      - infinity
+    user: root
+  ubuntu-bionic: # ubuntu 18.04 LTS
+    image: ubuntu:bionic
+    command:
+      - sleep
+      - infinity
+    user: root
+  ubuntu-xenial: # ubuntu 16.04 LTS
+    image: ubuntu:xenial
+    command:
+      - sleep
+      - infinity
+    user: root
+  ubuntu-trusty: # ubuntu 14.04 LTS
+    image: ubuntu:trusty
+    command:
+      - sleep
+      - infinity
+    user: root
+    

@@ -19,3 +19,5 @@ source "${workDir}/env.sh"
 source "${workDir}/detect.sh"
 # aliases
 source "${workDir}/aliases.sh"
+# MyContainer
+source "${workDir}/mycontainer.sh"
