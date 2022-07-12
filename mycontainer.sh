@@ -111,7 +111,7 @@ myContainerDown() {
 
 
 
-myContainerMain() {
+myContainerMain-479ba3472071fe003c48f3806f6d58fb() {
     local action="${1}"
     local service="${2}"
     local shell="${3}"
@@ -131,5 +131,5 @@ myContainerMain() {
 }
 
 
-alias "mycontainer"="myContainerMain"
+alias "mycontainer"="myContainerMain-479ba3472071fe003c48f3806f6d58fb"
 echo "You can use command 'mycontainer' to create os container, try: mycontainer"
