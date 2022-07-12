@@ -19,6 +19,7 @@ function usage() {
     echo "exec [service] <shell name>: Get in the service container"
     echo "down: Cleanup all services"
     echo "down [service]: Cleanup the service"
+    echo "ps|ls: Show running services"
     echo "----------- services ----------"
     myContainer config --services | while IFS="\n" read -r service
     do
@@ -121,6 +122,8 @@ myContainerMain() {
             myContainerDown "${service}";;
         exec)
             myContainerExec "${service}" "${shell}";;
+        ls|ps)
+            myContainer ps;;
         *)
             usage
             ;;
