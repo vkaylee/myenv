@@ -17,7 +17,8 @@ function usage() {
     echo "----------- actions -----------"
     echo "up [service]: Up service on local"
     echo "exec [service] <shell name>: Get in the service container"
-    echo "down: Cleanup the setup"
+    echo "down: Cleanup all services"
+    echo "down [service]: Cleanup the service"
     echo "----------- services ----------"
     myContainer config --services | while IFS="\n" read -r service
     do
@@ -92,7 +93,18 @@ myContainerExec() {
 }
 
 myContainerDown() {
-    myContainer down
+    local service="${1}"
+    if [ -z "${service}" ]; then
+        myContainer down
+        return
+    fi
+    if ! myContainerShowWrongServices "${service}"; then
+        return 1
+    fi
+    # -f, --force     Don't ask to confirm removal
+    # -s, --stop      Stop the containers, if required, before removing
+    # -v, --volumes   Remove any anonymous volumes attached to containers
+    myContainer rm -s -v -f "${service}"
 }
 
 
@@ -106,7 +118,7 @@ myContainerMain() {
         up)
             myContainerUp "${service}";;
         down)
-            myContainerDown;;
+            myContainerDown "${service}";;
         exec)
             myContainerExec "${service}" "${shell}";;
         *)
