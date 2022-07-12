@@ -54,4 +54,11 @@ services:
       - sleep
       - infinity
     user: root
+  ## Centos
+  centos-7:
+    image: centos:centos7
+    command:
+      - sleep
+      - infinity
+    user: root
     
