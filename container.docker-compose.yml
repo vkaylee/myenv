@@ -1,6 +1,8 @@
 version: '3'
 services:
   gcli:
+    # This is the environment for google cloud cli (gcloud command)
+    # To initialize the gcloud CLI, run `gcloud init`
     image: gcr.io/google.com/cloudsdktool/google-cloud-cli:389.0.0-debian_component_based
     command:
       - sleep
