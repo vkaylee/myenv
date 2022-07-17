@@ -1,72 +1,47 @@
-version: '3'
+version: '3.9'
+# Extension fields
+# Refer: https://docs.docker.com/compose/compose-file/compose-file-v3/#extension-fields
+x-default-container-configuration:
+  &default-container-configuration
+  command:
+    - sleep
+    - infinity
+  user: root
 services:
   gcli:
     # This is the environment for google cloud cli (gcloud command)
     # To initialize the gcloud CLI, run `gcloud init`
+    << : *default-container-configuration
     image: gcr.io/google.com/cloudsdktool/google-cloud-cli:389.0.0-debian_component_based
-    command:
-      - sleep
-      - infinity
-    user: root
   debian-bullseye: # Debian 11
+    << : *default-container-configuration
     image: debian:bullseye
-    command:
-      - sleep
-      - infinity
-    user: root
   debian-buster: # Debian 10
+    << : *default-container-configuration
     image: debian:buster
-    command:
-      - sleep
-      - infinity
-    user: root
   debian-stretch: # Debian 9
+    << : *default-container-configuration
     image: debian:stretch
-    command:
-      - sleep
-      - infinity
-    user: root
   debian-jessie: # Debian 8
+    << : *default-container-configuration
     image: debian:jessie
-    command:
-      - sleep
-      - infinity
-    user: root
   debian-wheezy: # Debian 7
+    << : *default-container-configuration
     image: debian:wheezy
-    command:
-      - sleep
-      - infinity
-    user: root
   ubuntu-focal: # ubuntu 20.04 LTS
+    << : *default-container-configuration
     image: ubuntu:focal
-    command:
-      - sleep
-      - infinity
-    user: root
   ubuntu-bionic: # ubuntu 18.04 LTS
+    << : *default-container-configuration
     image: ubuntu:bionic
-    command:
-      - sleep
-      - infinity
-    user: root
   ubuntu-xenial: # ubuntu 16.04 LTS
+    << : *default-container-configuration
     image: ubuntu:xenial
-    command:
-      - sleep
-      - infinity
-    user: root
   ubuntu-trusty: # ubuntu 14.04 LTS
+    << : *default-container-configuration
     image: ubuntu:trusty
-    command:
-      - sleep
-      - infinity
-    user: root
   ## Centos
   centos-7:
+    << : *default-container-configuration
     image: centos:centos7
-    command:
-      - sleep
-      - infinity
-    user: root
     
