@@ -48,7 +48,10 @@ services:
   ubuntu-trusty: # ubuntu 14.04 LTS
     << : *default-container-configuration
     image: ubuntu:trusty
-  ## Centos
+  ## Centos environment
+  centos: # Centos latest
+    <<: *default-container-configuration
+    image: centos:latest
   centos-7:
     << : *default-container-configuration
     image: centos:centos7
