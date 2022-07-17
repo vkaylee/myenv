@@ -32,6 +32,10 @@ services:
   debian-wheezy: # Debian 7
     << : *default-container-configuration
     image: debian:wheezy
+  # Ubuntu environment
+  ubuntu: # Ubuntu latest
+    <<: *default-container-configuration
+    image: ubuntu:latest
   ubuntu-focal: # ubuntu 20.04 LTS
     << : *default-container-configuration
     image: ubuntu:focal
