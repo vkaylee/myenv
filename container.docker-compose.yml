@@ -1,5 +1,11 @@
 version: '3'
 services:
+  gcli:
+    image: gcr.io/google.com/cloudsdktool/google-cloud-cli:389.0.0-debian_component_based
+    command:
+      - sleep
+      - infinity
+    user: root
   debian-bullseye: # Debian 11
     image: debian:bullseye
     command:
