@@ -55,4 +55,11 @@ services:
   centos-7:
     << : *default-container-configuration
     image: centos:centos7
+  ## Alpine environment
+  alpine: # Alpine latest
+    <<: *default-container-configuration
+    image: alpine:latest
+  alpine-3.16: # Alpine 3.16
+    <<: *default-container-configuration
+    image: alpine:3.16
     
