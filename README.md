@@ -1,3 +1,9 @@
+## Quick start:
+`Bash` shell must be `pre-installed` to run `setup.sh`
+```bash
+    git clone https://github.com/vleedev/myenv.git && \
+    sudo bash ./myenv/setup.sh
+```
 ## Install zsh
 
 - Debian (apt): ```apt update && apt install zsh```

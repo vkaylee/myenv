@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 # This function is used to check the existent command or not
 has_command(){
   # Usage: has_command <command_name>
@@ -28,22 +28,4 @@ setAlias(){
   fi
   echo "You can not use command '${aliasCommand}' as '${realCommand}' because '${aliasCommand}' was a command already! Please check with command 'which ${aliasCommand}' for more info"
   return 1
-}
-is_root_user() {
-  # Returns 0 if root, 1 if non-root
-  if [[ $EUID -eq 0 || $(id -u) -eq 0 ]]; then
-    return 0 # Return 0 if root
-  fi
-  return 1 # Return 1 if non-root
-}
-check_run_as_root(){
-  # Usuage: check_run_as_root <message you want to show>
-  if ! is_root_user > /dev/null 2>&1; then
-    if [[ "${1}x" == "x" ]]; then
-      echo "You must run as root!"
-    else
-      echo "$1"
-    fi
-    exit 1
-  fi
 }
