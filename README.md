@@ -2,7 +2,7 @@
 `Bash` shell must be `pre-installed` to run `setup.sh`
 ```bash
     git clone https://github.com/vleedev/myenv.git && \
-    sudo bash ./myenv/setup.sh
+    ./myenv/setup.sh
 ```
 ## Install zsh
 
