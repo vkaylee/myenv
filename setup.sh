@@ -19,7 +19,7 @@ then
 fi
 # make zsh as default shell for the user
 if [ "${SHELL}" != "$(which zsh)" ]; then
-  echo ${USER} | sudo chsh -s $(which zsh)
+  sudo chsh -s $(which zsh) ${USER}
 fi
 # Install oh-my-zsh
 yes Y | bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
