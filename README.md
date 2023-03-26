@@ -1,8 +1,8 @@
 ## Quick start:
 `Bash` shell must be `pre-installed` to run `setup.sh`
 ```bash
-    git clone https://github.com/vleedev/myenv.git && \
-    ./myenv/setup.sh
+git clone https://github.com/vleedev/myenv.git && \
+./myenv/setup.sh
 ```
 ## Install zsh
 
