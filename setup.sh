@@ -19,7 +19,7 @@ then
 fi
 # make zsh as default shell for the user
 if [ "${SHELL}" != "$(which zsh)" ]; then
-  chsh -s $(which zsh) ${USER}
+  echo ${USER} | sudo chsh -s $(which zsh)
 fi
 # Install plugin zsh-autosuggestions
 USER_DIR="$(echo ~)"
