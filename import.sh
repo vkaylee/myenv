@@ -11,13 +11,12 @@ fi
 #source "${HOME}/Documents/myenv/import.sh"
 # Take working directory
 thisFilePath="$(readlink -f "${(%):-%x}")"
-workDir=$(dirname "${thisFilePath}")
-echo "Current directory of the file ${thisFilePath} is ${workDir}"
+work_dir=$(dirname "${thisFilePath}")
 # Load environments
-source "${workDir}/env.sh"
+source "${work_dir}/env.sh"
 # Load detect.sh script
-source "${workDir}/detect.sh"
+source "${work_dir}/detect.sh"
 # aliases
-source "${workDir}/aliases.sh"
+source "${work_dir}/aliases.sh"
 # MyContainer
-source "${workDir}/mycontainer.sh"
+source "${work_dir}/mycontainer.sh"

@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 # Take working directory
 thisFilePath="$(readlink -f "${(%):-%x}")"
-workDir=$(dirname "${thisFilePath}")
-if [ -r "${workDir}/.env" ]; then
+work_dir=$(dirname "${thisFilePath}")
+if [ -r "${work_dir}/.env" ]; then
   set -a
   # shellcheck source=currentDir/.env
-  source <(sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g" < "${workDir}/.env")
+  source <(sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g" < "${work_dir}/.env")
   set +a
-  echo "Some environments in ${workDir}/.env have been set!"
+  echo "Some environments in ${work_dir}/.env have been set!"
 fi

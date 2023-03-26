@@ -2,10 +2,10 @@
 # Take working directory
 thisFilePath="$(readlink -f "${(%):-%x}")"
 
-workDir=$(dirname "${thisFilePath}")
+work_dir=$(dirname "${thisFilePath}")
 
 myContainer() {
-    docker-compose --project-directory "${workDir}" --file "${workDir}/container.docker-compose.yml" --project-name "container" "${@}"
+    docker-compose --project-directory "${work_dir}" --file "${work_dir}/container.docker-compose.yml" --project-name "container" "${@}"
 }
 
 myContainerConfigServices() {

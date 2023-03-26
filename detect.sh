@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 # Take working directory
 thisFilePath="$(readlink -f "${(%):-%x}")"
-workDir=$(dirname "${thisFilePath}")
+work_dir=$(dirname "${thisFilePath}")
 # Load lib
-source "${workDir}/lib.sh"
+source "${work_dir}/lib.sh"
