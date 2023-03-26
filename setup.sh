@@ -4,6 +4,7 @@ set -e
 # Take working directory
 this_file_path="$(readlink -f "$0")"
 work_dir=$(dirname "${this_file_path}")
+USER_DIR="$(echo ~)"
 # Install zsh
 if ! command -v "zsh" >/dev/null 2>&1; 
 then
@@ -27,7 +28,6 @@ if [ -d "${USER_DIR}/.oh-my-zsh" ]; then
 fi
 yes Y | bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 # Install plugin zsh-autosuggestions
-USER_DIR="$(echo ~)"
 zsh_autosuggestions_dir="${USER_DIR}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 if [ -d "${zsh_autosuggestions_dir}" ]; then
   rm -rf "${zsh_autosuggestions_dir}"
