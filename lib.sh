@@ -1,19 +1,15 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 # This function is used to check the existent command or not
-# It depends on which command
-hasCommand(){
-  # Input:
-  # $1: command string
-  # Return:
-  # 0: Has the command
-  # 1: Do not have the command
-  local command=$1
-  which "${command}" > /dev/null 2>&1
-  local statusCode=$?
-  if [ ${statusCode} -eq 1 ]; then
-    return 1 # Does not have the command
+has_command(){
+  # Usage: has_command <command_name>
+  # Check whether a command exists
+  # $1 the actual command you want to check
+  # Aliases included by option -v
+  if command -v "$1" >/dev/null 2>&1; 
+  then
+    return 0 # exists
   fi
-  return 0 # Has the command
+  return 1 # does not exist
 }
 setAlias(){
   # Input:
@@ -24,7 +20,7 @@ setAlias(){
   # 1: set failed
   local aliasCommand=$1
   local realCommand=$2
-  if ! hasCommand "${aliasCommand}" > /dev/null 2>&1; then
+  if has_command "${aliasCommand}" > /dev/null 2>&1; then
     # shellcheck disable=SC2139
     alias "${aliasCommand}"="${realCommand}"
     echo "You can use command '${aliasCommand}' as '${realCommand}'"
