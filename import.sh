@@ -1,11 +1,4 @@
 #!/usr/bin/env zsh
-# Support only zsh shell
-myShell=$(ps -hp $$ | awk '{print $5}')
-if [ "${myShell}" != "/usr/bin/zsh" ]; then
-  echo "You must install and set zsh as your default shell"
-  exit 1
-fi
-
 # Put this one into your shell load script
 ## Load customize configuration myenv
 #source "${HOME}/Documents/myenv/import.sh"
