@@ -10,8 +10,8 @@ fi
 ## Load customize configuration myenv
 #source "${HOME}/Documents/myenv/import.sh"
 # Take working directory
-thisFilePath="$(readlink -f "${(%):-%x}")"
-work_dir=$(dirname "${thisFilePath}")
+this_file_path="$(readlink -f "${(%):-%x}")"
+work_dir=$(dirname "${this_file_path}")
 # Load environments
 source "${work_dir}/env.sh"
 # Load detect.sh script

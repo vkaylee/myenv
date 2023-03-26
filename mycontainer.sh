@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 # Take working directory
-thisFilePath="$(readlink -f "${(%):-%x}")"
+this_file_path="$(readlink -f "${(%):-%x}")"
 
-work_dir=$(dirname "${thisFilePath}")
+work_dir=$(dirname "${this_file_path}")
 
 myContainer() {
     docker-compose --project-directory "${work_dir}" --file "${work_dir}/container.docker-compose.yml" --project-name "container" "${@}"

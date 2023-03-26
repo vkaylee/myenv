@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # Take working directory
-thisFilePath="$(readlink -f "${(%):-%x}")"
-work_dir=$(dirname "${thisFilePath}")
+this_file_path="$(readlink -f "${(%):-%x}")"
+work_dir=$(dirname "${this_file_path}")
 if [ -r "${work_dir}/.env" ]; then
   set -a
   # shellcheck source=currentDir/.env
