@@ -40,9 +40,9 @@ check_run_as_root(){
   # Usuage: check_run_as_root <message you want to show>
   if ! is_root_user > /dev/null 2>&1; then
     if [[ "${1}x" == "x" ]]; then
-      echo "$1"
-    else
       echo "You must run as root!"
+    else
+      echo "$1"
     fi
     exit 1
   fi
