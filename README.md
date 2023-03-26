@@ -53,4 +53,4 @@ Put to the `.zshrc` file
 ### Load ENV
 
 if you want to set your ENV to every session when you create a new session
-Put all `ENV_KEY=ENV_VALUE` to the `.env` file
+Put all `ENV_KEY=ENV_VALUE` to the `.env` file. Create a new one if it does not exist
