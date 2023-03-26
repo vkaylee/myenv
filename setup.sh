@@ -5,13 +5,18 @@ set -e
 this_file_path="$(readlink -f "$0")"
 work_dir=$(dirname "${this_file_path}")
 # Install zsh
-while ! command -v "zsh" >/dev/null 2>&1; do
+if ! command -v "zsh" >/dev/null 2>&1; 
+then
   # Install zsh by apt-get command line
-  if ! command -v "apt-get" >/dev/null 2>&1; 
+  if command -v "apt-get" >/dev/null 2>&1; 
   then
     sudo apt-get update && sudo apt-get install -y zsh
+  else
+    # Implement more for yum, dnf, brew
+    echo "your current system is not supported this time"
+    exit 1
   fi
-done
+fi
 # make zsh as default shell for the user
 if [ "${SHELL}" != "$(which zsh)" ]; then
   chsh -s $(which zsh) ${USER}
