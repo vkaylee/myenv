@@ -11,7 +11,7 @@ has_command(){
   fi
   return 1 # does not exist
 }
-setAlias(){
+set_command_alias(){
   # Input:
   # $1: The alias command that you want to register
   # $2: The command string
@@ -20,7 +20,7 @@ setAlias(){
   # 1: set failed
   local aliasCommand=$1
   local realCommand=$2
-  if has_command "${aliasCommand}" > /dev/null 2>&1; then
+  if ! has_command "${aliasCommand}" > /dev/null 2>&1; then
     # shellcheck disable=SC2139
     alias "${aliasCommand}"="${realCommand}"
     echo "You can use command '${aliasCommand}' as '${realCommand}'"
