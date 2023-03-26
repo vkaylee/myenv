@@ -36,9 +36,14 @@ is_root_user() {
   fi
   return 1 # Return 1 if non-root
 }
-rootNeeded(){
+check_run_as_root(){
+  # Usuage: check_run_as_root <message you want to show>
   if ! is_root_user > /dev/null 2>&1; then
-    echo "You must run as root!"
+    if [[ "${1}x" == "x" ]]; then
+      echo "$1"
+    else
+      echo "You must run as root!"
+    fi
     exit 1
   fi
 }
