@@ -22,6 +22,9 @@ if [ "${SHELL}" != "$(which zsh)" ]; then
   sudo chsh -s $(which zsh) ${USER}
 fi
 # Install oh-my-zsh
+if [ -d "${USER_DIR}/.oh-my-zsh" ]; then
+  rm -rf "${USER_DIR}/.oh-my-zsh"
+fi
 yes Y | bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 # Install plugin zsh-autosuggestions
 USER_DIR="$(echo ~)"
