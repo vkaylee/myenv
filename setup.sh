@@ -25,7 +25,7 @@ fi
 # make zsh as default shell for the user
 if [ "${SHELL}" != "$(which zsh)" ]; then
   zsh_path=$(which zsh)
-  if ! command -v "chsh" >/dev/null 2>&1; 
+  if command -v "chsh" >/dev/null 2>&1; 
   then
     sudo chsh -s "${zsh_path}" ${USER}
   elif command -v "usermod" >/dev/null 2>&1;
