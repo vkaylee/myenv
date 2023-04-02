@@ -12,6 +12,10 @@ then
   if command -v "apt-get" >/dev/null 2>&1; 
   then
     sudo apt-get update && sudo apt-get install -y zsh
+  # Install zsh by apt-get command line
+  elif command -v "dnf" >/dev/null 2>&1;
+  then
+    sudo dnf update && sudo dnf install -y zsh
   else
     # Implement more for yum, dnf, brew
     echo "your current system is not supported this time"
