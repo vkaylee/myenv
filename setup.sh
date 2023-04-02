@@ -24,7 +24,17 @@ then
 fi
 # make zsh as default shell for the user
 if [ "${SHELL}" != "$(which zsh)" ]; then
-  sudo chsh -s $(which zsh) ${USER}
+  zsh_path=$(which zsh)
+  if ! command -v "chsh" >/dev/null 2>&1; 
+  then
+    sudo chsh -s "${zsh_path}" ${USER}
+  elif command -v "usermod" >/dev/null 2>&1;
+  then
+    sudo usermod -s "${zsh_path}" ${USER}
+  else
+    echo "your current system is not supported to set zsh as default shell"
+    exit 2
+  fi
 fi
 # Install oh-my-zsh
 if [ -d "${USER_DIR}/.oh-my-zsh" ]; then
