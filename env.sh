@@ -15,6 +15,10 @@ myenv_set_envs_876892765834465872652357846459283659(){
 
 # Load root ENV
 myenv_set_envs_876892765834465872652357846459283659 "${work_dir}/.env"
-
+# Custom ENV
+## appconfig DIR
+export MYENV_APPCONFIG_DIR="${MYENV_DIR}/appconfig"
+## Kubectl
+export KUBECONFIG="${KUBECONFIG}:${MYENV_APPCONFIG_DIR}/kubeconfig/config"
 # Load workspace ENV
 myenv_set_envs_876892765834465872652357846459283659 "$(pwd)/.env.myenv"
