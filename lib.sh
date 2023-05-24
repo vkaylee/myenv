@@ -29,3 +29,39 @@ set_command_alias(){
   echo "You can not use command '${aliasCommand}' as '${realCommand}' because '${aliasCommand}' was a command already! Please check with command 'which ${aliasCommand}' for more info"
   return 1
 }
+
+set_command_aliases(){
+  local aliases=$1
+  local realCommand=$2
+  local description=$3
+  aliasCommands=(${(@s:,:)aliases})
+
+  local okAliasesStr=()
+  local noOkAliasesStr=()
+  local delimiter=','
+
+  for command in ${aliasCommands[@]}; do
+    if set_command_alias "${command}" "${realCommand}" > /dev/null 2>&1; then
+      if [[ -n "${okAliasesStr}" ]]; then
+        okAliasesStr="${okAliasesStr}${delimiter}${command}"
+      else
+        okAliasesStr="${command}"
+      fi
+    else
+      if [[ -n "${noOkAliasesStr}" ]]; then
+        noOkAliasesStr="${noOkAliasesStr}${delimiter}${command}"
+      else
+        noOkAliasesStr="${command}"
+      fi
+    fi
+  done
+
+  local retStr="${description}:"
+  if [[ -n "${okAliasesStr}" ]]; then
+    retStr="${retStr} ${okAliasesStr}"
+  fi
+  if [[ -n "${noOkAliasesStr}" ]]; then
+    retStr="${retStr} (Can't register: ${noOkAliasesStr})"
+  fi
+  echo "${retStr}"
+}
