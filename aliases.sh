@@ -19,4 +19,8 @@ if [ "$(command -v docker)" ]; then
     else
         set_command_alias 'aws' 'docker run --rm -it -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION public.ecr.aws/aws-cli/aws-cli:latest'
     fi
+
+    # Add terraform
+    set_command_alias 'terraform' "docker run --rm -ti --name terraform -w /workspace -v \$(pwd):/workspace -v ${work_dir}/appconfig/terraform:/root/.terraform.d hashicorp/terraform:latest"
+    set_command_alias 'tf' 'terraform'
 fi
