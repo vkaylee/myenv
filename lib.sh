@@ -20,6 +20,11 @@ set_command_alias(){
   # 1: set failed
   local aliasCommand=$1
   local realCommand=$2
+  # Allow if alias command is equal with real command
+  if [[ "${aliasCommand}" == "${realCommand}" ]]; then
+    return 0
+  fi
+  
   if ! has_command "${aliasCommand}" > /dev/null 2>&1; then
     # shellcheck disable=SC2139
     alias "${aliasCommand}"="${realCommand}"
