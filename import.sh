@@ -5,6 +5,7 @@
 # Take working directory
 this_file_path="$(readlink -f "${(%):-%x}")"
 work_dir=$(dirname "${this_file_path}")
+export MYENV_DIR="${work_dir}"
 # Load environments
 source "${work_dir}/env.sh"
 # Load detect.sh script
