@@ -11,6 +11,7 @@
     - Google cloud command line tool: `gcloud`, `gcli`
     - Google cloud shell: `gshell`
     - Kubernetes command line interface: `kubectl`, `kctl`
+- Provision environment for testing by using command `mycontainer`
 ## Quick start:
 `Bash` shell must be `pre-installed` to run `setup.sh`
 ```bash
