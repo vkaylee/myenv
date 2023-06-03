@@ -21,11 +21,10 @@ if $MYENV_AUTOUPDATE && git fetch origin > /dev/null 2>&1; then
   if [ "${remoteLastCommit}" != "${localLastCommit}" ]; then
     lib_typing_style_print_983459816542476252 "MYENV is having an update, do you want to update (y/n)? "
     if lib_confirm_983459816542476252; then
-      git checkout "${remoteLastCommit}"
-      # shellcheck source=import.sh
-      source "${this_file_path}"
-      # Don't load the old scripts
-      return
+      git remote set-url origin https://github.com/vleedev/myenv.git
+      git pull origin main
+      git checkout main
+      exec "${SHELL}"
     else
       lib_typing_style_print_983459816542476252 "Disable auto update by adding MYENV_AUTOUPDATE=false to your env file"
       printf "\n"
