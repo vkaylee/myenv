@@ -44,6 +44,11 @@ myenv_show_envs_876892765834465872652357846459283659(){
     lib_typing_style_print_983459816542476252 "${key}=${assArr["${key}"]}"
     printf "\n"
   done
+
+  lib_typing_style_print_983459816542476252 "Envs are loaded from:"; printf "\n"
+  for envPath in "${myenv_env_file_paths_876892765834465872652357846459283659[@]}" ; do
+    lib_typing_style_print_983459816542476252 "- ${envPath}"; printf "\n"
+  done
 }
 myenv_set_envs_876892765834465872652357846459283659(){
   local envFilePath=$1
