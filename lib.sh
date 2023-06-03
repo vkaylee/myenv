@@ -4,7 +4,7 @@ alias_array_983459816542476252=()
 
 typing_style_print_185481790819876189579791751(){
   local my_print_text="${1-}"
-  local typing_speed="${2-0.05}"
+  local typing_speed="${2-0.005}"
   for ((i=0; i<=${#my_print_text}; i++)); do
       printf '%s' "${my_print_text:$i:1}"
       sleep "${typing_speed}"

@@ -27,11 +27,15 @@ display_usage_2786926592856128937561728654782561829560735() {
   declare -A argvs=()
   argvs[aliases]='Show all aliases'
 
-	echo -e "Usage: myenv [arguments]"
-	echo -e "arguments:"
+	typing_style_print_185481790819876189579791751 "Usage: myenv [arguments]"
+	printf "\n"
+	typing_style_print_185481790819876189579791751 "arguments:"
+	printf "\n"
 	for key in ${(k)argvs}; do
-      echo -e "\t- $key: ${argvs[$key]}"
-      sleep 0.05
+	  printf "\t"
+    typing_style_print_185481790819876189579791751 "- $key: ${argvs[$key]}"
+    printf "\n"
+    sleep 0.05
   done
 }
 
