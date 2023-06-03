@@ -27,13 +27,13 @@ display_usage_2786926592856128937561728654782561829560735() {
   declare -A argvs=()
   argvs[aliases]='Show all aliases'
 
-	typing_style_print_185481790819876189579791751 "Usage: myenv [arguments]"
+	lib_typing_style_print_983459816542476252 "Usage: myenv [arguments]"
 	printf "\n"
-	typing_style_print_185481790819876189579791751 "arguments:"
+	lib_typing_style_print_983459816542476252 "arguments:"
 	printf "\n"
 	for key in ${(k)argvs}; do
 	  printf "\t"
-    typing_style_print_185481790819876189579791751 "- $key: ${argvs[$key]}"
+    lib_typing_style_print_983459816542476252 "- $key: ${argvs[$key]}"
     printf "\n"
     sleep 0.05
   done
@@ -43,11 +43,11 @@ myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623
   local firstInput="${1-}"
   case ${firstInput} in
   aliases)
-    print_alias_array_865726598738972356812578132451723564172
+    lib_print_alias_array_983459816542476252
     ;;
   *)
     display_usage_2786926592856128937561728654782561829560735
     ;;
   esac
 }
-set_command_aliases 'myenv' 'myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623547265472549126354' 'MYENV helper, try with command' true
+lib_set_command_aliases_983459816542476252 'myenv' 'myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623547265472549126354' 'MYENV helper, try with command' true

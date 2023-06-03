@@ -1,8 +1,9 @@
 #!/usr/bin/env zsh
+# Namespace: start with lib_ and end with _983459816542476252
 # Define an array to store all guideline about all aliases
 alias_array_983459816542476252=()
 
-typing_style_print_185481790819876189579791751(){
+lib_typing_style_print_983459816542476252(){
   local my_print_text="${1-}"
   local typing_speed="${2-0.005}"
   for ((i=0; i<=${#my_print_text}; i++)); do
@@ -10,28 +11,28 @@ typing_style_print_185481790819876189579791751(){
       sleep "${typing_speed}"
   done
 }
-array_printer_877612354827582(){
+lib_array_printer_983459816542476252(){
   # 1: "${myArray[@]}"
   local myArray=("$@")
   for item in "${myArray[@]}";do
-    typing_style_print_185481790819876189579791751 "- ${item}" 0.0005
+    lib_typing_style_print_983459816542476252 "- ${item}" 0.0005
     printf '\n'
     sleep 0.05
   done
 }
 
-set_alias_array_86572659873897235681257813245172356417235(){
+lib_set_alias_array_983459816542476252(){
   local value="${1-}"
   if [ -n "${value}" ]; then
     alias_array_983459816542476252+=("${value}")
   fi
 }
-print_alias_array_865726598738972356812578132451723564172(){
-  array_printer_877612354827582 "${alias_array_983459816542476252[@]}"
+lib_print_alias_array_983459816542476252(){
+  lib_array_printer_983459816542476252 "${alias_array_983459816542476252[@]}"
 }
 # This function is used to check the existent command or not
-has_command(){
-  # Usage: has_command <command_name>
+lib_has_command_983459816542476252(){
+  # Usage: lib_has_command_983459816542476252 <command_name>
   # Check whether a command exists
   # $1 the actual command you want to check
   # Aliases included by option -v
@@ -41,7 +42,7 @@ has_command(){
   fi
   return 1 # does not exist
 }
-set_command_alias(){
+lib_set_alias_command_983459816542476252(){
   # Input:
   # $1: The alias command that you want to register
   # $2: The command string
@@ -55,7 +56,7 @@ set_command_alias(){
     return 0
   fi
   
-  if ! has_command "${aliasCommand}" > /dev/null 2>&1; then
+  if ! lib_has_command_983459816542476252 "${aliasCommand}" > /dev/null 2>&1; then
     # shellcheck disable=SC2139
     alias "${aliasCommand}"="${realCommand}"
     echo "You can use command '${aliasCommand}' as '${realCommand}'"
@@ -65,7 +66,7 @@ set_command_alias(){
   return 1
 }
 
-set_command_aliases(){
+lib_set_command_aliases_983459816542476252(){
   local aliases=$1
   local realCommand=$2
   local description=$3
@@ -78,7 +79,7 @@ set_command_aliases(){
   local delimiter=','
 
   for command in ${aliasCommands[@]}; do
-    if set_command_alias "${command}" "${realCommand}" > /dev/null 2>&1; then
+    if lib_set_alias_command_983459816542476252 "${command}" "${realCommand}" > /dev/null 2>&1; then
       if [[ -n "${okAliasesStr}" ]]; then
         okAliasesStr="${okAliasesStr}${delimiter}${command}"
       else
@@ -101,9 +102,9 @@ set_command_aliases(){
     retStr="${retStr} (Can't register: ${noOkAliasesStr})"
   fi
   if $directedShow ; then
-    typing_style_print_185481790819876189579791751 "${retStr}" 0.005
+    lib_typing_style_print_983459816542476252 "${retStr}" 0.005
     printf "\n"
   else
-    set_alias_array_86572659873897235681257813245172356417235 "${retStr}"
+    lib_set_alias_array_983459816542476252 "${retStr}"
   fi
 }
