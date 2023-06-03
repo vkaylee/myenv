@@ -2,11 +2,20 @@
 # Define an array to store all guideline about all aliases
 alias_array_983459816542476252=()
 
+typing_style_print_185481790819876189579791751(){
+  local my_print_text="${1-}"
+  local typing_speed="${2-0.05}"
+  for ((i=0; i<=${#my_print_text}; i++)); do
+      printf '%s' "${my_print_text:$i:1}"
+      sleep "${typing_speed}"
+  done
+}
 array_printer_877612354827582(){
   # 1: "${myArray[@]}"
   local myArray=("$@")
   for item in "${myArray[@]}";do
-    echo "- ${item}"
+    typing_style_print_185481790819876189579791751 "- ${item}" 0.0005
+    printf '\n'
     sleep 0.05
   done
 }
