@@ -101,7 +101,8 @@ set_command_aliases(){
     retStr="${retStr} (Can't register: ${noOkAliasesStr})"
   fi
   if $directedShow ; then
-    echo "${retStr}"
+    typing_style_print_185481790819876189579791751 "${retStr}" 0.005
+    printf "\n"
   else
     set_alias_array_86572659873897235681257813245172356417235 "${retStr}"
   fi

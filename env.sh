@@ -9,7 +9,8 @@ myenv_set_envs_876892765834465872652357846459283659(){
     # shellcheck source=currentDir/.env
     source <(sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g" < "${envFilePath}")
     set +a
-    echo "Some environments in ${envFilePath} have been set!"
+    typing_style_print_185481790819876189579791751 "Some environments in ${envFilePath} have been set!" 0.005
+    printf '\n'
   fi
 }
 
