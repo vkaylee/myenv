@@ -108,3 +108,13 @@ lib_set_command_aliases_983459816542476252(){
     lib_set_alias_array_983459816542476252 "${retStr}"
   fi
 }
+
+lib_confirm_983459816542476252()
+{
+  read -r -s input
+  echo "${input}"
+  case "${input}" in
+    [Yy]* ) return 0;;
+    * ) return 1;;
+  esac
+}
