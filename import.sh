@@ -20,3 +20,28 @@ find "${work_dir}/personal_scripts/" -maxdepth 1 -type f -name "*.sh" -printf '%
 do
     source "${personal_script_path}"
 done
+
+display_usage_2786926592856128937561728654782561829560735() {
+  declare -A argvs=()
+  argvs[aliases]='Show all aliases'
+
+	echo -e "Usage: myenv [arguments]"
+	echo -e "arguments:"
+	for key in ${(k)argvs}; do
+      echo -e "\t- $key: ${argvs[$key]}"
+      sleep 0.05
+  done
+}
+
+myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623547265472549126354(){
+  local firstInput="${1-}"
+  case ${firstInput} in
+  aliases)
+    print_alias_array_865726598738972356812578132451723564172
+    ;;
+  *)
+    display_usage_2786926592856128937561728654782561829560735
+    ;;
+  esac
+}
+set_command_aliases 'myenv' 'myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623547265472549126354' 'MYENV helper' true

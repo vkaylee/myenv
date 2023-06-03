@@ -1,4 +1,25 @@
 #!/usr/bin/env zsh
+# Define an array to store all guideline about all aliases
+alias_array_983459816542476252=()
+
+array_printer_877612354827582(){
+  # 1: "${myArray[@]}"
+  local myArray=("$@")
+  for item in "${myArray[@]}";do
+    echo "- ${item}"
+    sleep 0.05
+  done
+}
+
+set_alias_array_86572659873897235681257813245172356417235(){
+  local value="${1-}"
+  if [ -n "${value}" ]; then
+    alias_array_983459816542476252+=("${value}")
+  fi
+}
+print_alias_array_865726598738972356812578132451723564172(){
+  array_printer_877612354827582 "${alias_array_983459816542476252[@]}"
+}
 # This function is used to check the existent command or not
 has_command(){
   # Usage: has_command <command_name>
@@ -39,6 +60,8 @@ set_command_aliases(){
   local aliases=$1
   local realCommand=$2
   local description=$3
+  local directedShow="${4:-false}"
+
   aliasCommands=(${(@s:,:)aliases})
 
   local okAliasesStr=()
@@ -68,5 +91,9 @@ set_command_aliases(){
   if [[ -n "${noOkAliasesStr}" ]]; then
     retStr="${retStr} (Can't register: ${noOkAliasesStr})"
   fi
-  echo "${retStr}"
+  if $directedShow ; then
+    echo "${retStr}"
+  else
+    set_alias_array_86572659873897235681257813245172356417235 "${retStr}"
+  fi
 }
