@@ -47,8 +47,9 @@ do
 done
 
 display_usage_2786926592856128937561728654782561829560735() {
-  declare -A argvs=()
+  typeset -A argvs=()
   argvs[aliases]='Show all aliases'
+  argvs[envs]='Show all envs are set by myenv'
 
 	lib_typing_style_print_983459816542476252 "Usage: myenv [arguments]"
 	printf "\n"
@@ -67,6 +68,9 @@ myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623
   case ${firstInput} in
   aliases)
     lib_print_alias_array_983459816542476252
+    ;;
+  envs)
+    myenv_show_envs_876892765834465872652357846459283659
     ;;
   *)
     display_usage_2786926592856128937561728654782561829560735
