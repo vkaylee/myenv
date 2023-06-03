@@ -125,6 +125,4 @@ myContainerMain-479ba3472071fe003c48f3806f6d58fb4cf5ce9101af532f114604038b7495c0
     esac
 }
 
-
-alias "mycontainer"="myContainerMain-479ba3472071fe003c48f3806f6d58fb4cf5ce9101af532f114604038b7495c0"
-echo "You can use command 'mycontainer' to create os container, try: mycontainer"
+set_command_aliases 'mycontainer,myc' 'myContainerMain-479ba3472071fe003c48f3806f6d58fb4cf5ce9101af532f114604038b7495c0' 'Create OS environment in container'
