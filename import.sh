@@ -4,19 +4,21 @@
 #source "${HOME}/Documents/myenv/import.sh"
 # Take working directory
 this_file_path="$(readlink -f "${(%):-%x}")"
-work_dir=$(dirname "${this_file_path}")
-export MYENV_DIR="${work_dir}"
+MYENV_DIR=$(dirname "${this_file_path}")
+export MYENV_DIR
+# Load lib
+source "${MYENV_DIR}/lib.sh"
 # Load environments
-source "${work_dir}/env.sh"
+source "${MYENV_DIR}/env.sh"
 # Load detect.sh script
-source "${work_dir}/detect.sh"
+source "${MYENV_DIR}/detect.sh"
 # aliases
-source "${work_dir}/aliases.sh"
+source "${MYENV_DIR}/aliases.sh"
 # MyContainer
-source "${work_dir}/mycontainer.sh"
+source "${MYENV_DIR}/mycontainer.sh"
 
 # Load all custom scripts, the list will be ordered by name
-find "${work_dir}/personal_scripts/" -maxdepth 1 -type f -name "*.sh" -printf '%h\0%d\0%p\n' | sort -t '\0' -n | awk -F '\0' '{print $3}' | while read personal_script_path
+find "${MYENV_DIR}/personal_scripts/" -maxdepth 1 -type f -name "*.sh" -printf '%h\0%d\0%p\n' | sort -t '\0' -n | awk -F '\0' '{print $3}' | while read personal_script_path
 do
     source "${personal_script_path}"
 done
