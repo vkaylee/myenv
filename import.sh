@@ -27,6 +27,7 @@ source "${MYENV_DIR}/aliases.sh"
 source "${MYENV_DIR}/mycontainer.sh"
 
 # Load all custom scripts, the list will be ordered by name
+mkdir -p "${MYENV_DIR}/personal_scripts"
 find "${MYENV_DIR}/personal_scripts/" -maxdepth 1 -type f -name "*.sh" -printf '%h\0%d\0%p\n' | sort -t '\0' -n | awk -F '\0' '{print $3}' | while read personal_script_path
 do
     source "${personal_script_path}"
