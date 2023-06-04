@@ -120,15 +120,17 @@ myenv_lib_983459816_confirm()
 
 myenv_lib_983459816_update(){
   local isManual=${1-false}
-  if git --git-dir="${MYENV_DIR}/.git" fetch origin > /dev/null 2>&1; then
-    remoteLastCommit="$(git --git-dir="${MYENV_DIR}/.git" log origin/main | head -1 | awk '{print $2}')"
-    localLastCommit="$(git --git-dir="${MYENV_DIR}/.git" log | head -1 | awk '{print $2}')"
+  local gitDir="${MYENV_DIR}/.git"
+  # Set origin url to make sure we have the right remote url
+  git --git-dir="${gitDir}" remote set-url origin https://github.com/vleedev/myenv.git
+
+  if git --git-dir="${gitDir}" fetch origin > /dev/null 2>&1; then
+    remoteLastCommit="$(git --git-dir="${gitDir}" rev-parse --short origin/main)"
+    localLastCommit="$(git --git-dir="${gitDir}" rev-parse --short HEAD)"
     if [ "${remoteLastCommit}" != "${localLastCommit}" ]; then
       myenv_lib_983459816_typing_style_print "MYENV is having an update, do you want to update (y/n)? "
       if myenv_lib_983459816_confirm; then
-        git --git-dir="${MYENV_DIR}/.git" remote set-url origin https://github.com/vleedev/myenv.git
-        git --git-dir="${MYENV_DIR}/.git" pull origin main
-        git --git-dir="${MYENV_DIR}/.git" checkout main
+        git --git-dir="${gitDir}" checkout main
         exec "${SHELL}"
       else
         myenv_lib_983459816_typing_style_print "Disable auto update by adding MYENV_AUTOUPDATE=false to your env file"

@@ -8,8 +8,6 @@ MYENV_DIR=$(dirname "${this_file_path}")
 export MYENV_DIR
 MYENV_AUTOUPDATE=true
 export MYENV_AUTOUPDATE
-MYENV_VERSION=$(git --git-dir="${MYENV_DIR}/.git" rev-parse --short HEAD)
-export MYENV_VERSION
 # Load lib
 source "${MYENV_DIR}/lib.sh"
 # Load environments
@@ -72,3 +70,8 @@ myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623
   esac
 }
 myenv_lib_983459816_set_command_aliases 'myenv' 'myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623547265472549126354' 'MYENV helper, try with command' true
+
+
+# Set MYENV_VERSION after loading
+MYENV_VERSION=$(git --git-dir="${MYENV_DIR}/.git" rev-parse --short HEAD)
+export MYENV_VERSION
