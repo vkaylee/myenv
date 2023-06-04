@@ -2,6 +2,9 @@
 # Take working directory
 this_file_path="$(readlink -f "${(%):-%x}")"
 work_dir=$(dirname "${this_file_path}")
+# Associate array to store env by key value, key is unique
+typeset -A myenv_env_assarr_876892765834465872652357846459283659=()
+# Array for storing all env file paths
 myenv_env_file_paths_876892765834465872652357846459283659=()
 myenv_read_envs_876892765834465872652357846459283659(){
   local filePath="${1-}"
@@ -10,56 +13,55 @@ myenv_read_envs_876892765834465872652357846459283659(){
   done <<< "$(sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g" < "${filePath}")"
 }
 myenv_show_envs_876892765834465872652357846459283659(){
-  local linestr=""
-  for envPath in "${myenv_env_file_paths_876892765834465872652357846459283659[@]}" ; do
-    for myline in $(myenv_read_envs_876892765834465872652357846459283659 "${envPath}"); do
-      if [[ -n "${linestr}" ]]; then
-        linestr="${linestr}\n${myline}"
-      else
-        linestr="${myline}"
-      fi
-    done
+  local envLines=()
+  # Take key value and format "key=value\n" for sorting
+  for envKey envValue in "${(@kv)myenv_env_assarr_876892765834465872652357846459283659}"; do
+    envLines+=( "${envKey}=${envValue}\n" )
   done
 
-  local keys=()
-  typeset -A assArr=()
-  while read -r line
-  do
-    # Take key by regex
-    key=$(echo "$line" | grep -oP '^[^=]+')
-    if [[ -n "${key}" ]]; then
-      # Take value by removing the key
-      value=${line#"${key}="}
-      # Add to keys if the key does not exist in assArr to keep the order
-      if [[ -z "${assArr["${key}"]}" ]]; then
-        keys+=( "${key}" )
-      fi
-      # Set key value to assArr
-      assArr["${key}"]="${value}"
+  # Print envLine
+  local envCount=0
+  lib_typing_style_print_983459816542476252 "Environment variables (ordered by key):"; printf "\n"
+  while read -r envLine; do
+    if [[ -n "${envLine}" ]]; then
+      ((envCount++))
+      lib_typing_style_print_983459816542476252 "- (${envCount}) ${envLine}"; printf "\n"
     fi
-  done < <(echo -e "${linestr}" | sort -u -t '=' -k 1)
+  done < <(echo -e "${envLines}" | sort -u -t '=' -k 1)
 
-  # Loop order keys to take values
-  for key in "${keys[@]}"; do
-    lib_typing_style_print_983459816542476252 "${key}=${assArr["${key}"]}"
-    printf "\n"
-  done
-
+  # Print env file paths
+  local envFileCount=0
   lib_typing_style_print_983459816542476252 "Envs are loaded from:"; printf "\n"
   for envPath in "${myenv_env_file_paths_876892765834465872652357846459283659[@]}" ; do
-    lib_typing_style_print_983459816542476252 "- ${envPath}"; printf "\n"
+    if [[ -n "${envPath}" ]]; then
+      ((envFileCount++))
+      lib_typing_style_print_983459816542476252 "- (${envFileCount}) ${envPath}"; printf "\n"
+    fi
   done
 }
 myenv_set_envs_876892765834465872652357846459283659(){
   local envFilePath=$1
   if [ -r "${envFilePath}" ]; then
+    local envLines=()
+    while read -r envLine; do
+      # Add to envLines for sourcing
+      envLines+=( "${envLine}" )
+      # Take envKey value from envLine
+      # Take envKey by regex
+      envKey=$(echo "${envLine}" | grep -oP '^[^=]+')
+      if [[ -n "${envKey}" ]]; then
+        # Take value by removing the envKey
+        # Set key value to myenv_env_assarr_876892765834465872652357846459283659
+        myenv_env_assarr_876892765834465872652357846459283659["${envKey}"]="${envLine#"${envKey}="}"
+      fi
+    done < <(myenv_read_envs_876892765834465872652357846459283659 "${envFilePath}")
     set -a
     # shellcheck source=currentDir/.env
-    if source <(myenv_read_envs_876892765834465872652357846459283659 "${envFilePath}"); then
+    if source <(echo -e "${envLines}"); then
       myenv_env_file_paths_876892765834465872652357846459283659+=("${envFilePath}")
     fi
     set +a
-    lib_typing_style_print_983459816542476252 "Some environments in ${envFilePath} have been set!" 0.005
+    lib_typing_style_print_983459816542476252 "Some environment variables in ${envFilePath} have been set!"
     printf '\n'
   fi
 }

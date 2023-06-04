@@ -15,7 +15,7 @@ lib_array_printer_983459816542476252(){
   # 1: "${myArray[@]}"
   local myArray=("$@")
   for item in "${myArray[@]}";do
-    lib_typing_style_print_983459816542476252 "- ${item}" 0.0005
+    lib_typing_style_print_983459816542476252 "- ${item}" 0.00025
     printf '\n'
     sleep 0.05
   done
