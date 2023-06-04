@@ -126,7 +126,7 @@ myenv_lib_983459816_update(){
   # Set origin url to make sure we have the right remote url
   git --git-dir="${gitDir}" remote set-url "${gitRemoteName}" https://github.com/vleedev/myenv.git
 
-  if git --git-dir="${gitDir}" fetch origin > /dev/null 2>&1; then
+  if git --git-dir="${gitDir}" fetch "${gitRemoteName}" > /dev/null 2>&1; then
     local remoteLastCommit="$(git --git-dir="${gitDir}" rev-parse --short ${gitRemoteName}/${gitRemoteBranch})"
     local localLastCommit="$(git --git-dir="${gitDir}" rev-parse --short HEAD)"
     if [ "${remoteLastCommit}" != "${localLastCommit}" ]; then
