@@ -21,6 +21,10 @@ fi
 
 # Load detect.sh script
 source "${MYENV_DIR}/detect.sh"
+
+# Load some init for package managers
+source "${MYENV_DIR}/package_managers.sh"
+
 # aliases
 source "${MYENV_DIR}/aliases.sh"
 # MyContainer
