@@ -54,7 +54,6 @@ if ! grep "zsh-autosuggestions" "${ZSHRC_PATH}" >/dev/null 2>&1; then
   # Add to plugins before loading oh-my-zsh
   line_num=$(egrep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
   sed -i "${line_num} i plugins+=(zsh-autosuggestions)" "${ZSHRC_PATH}"
-  unset ${line_num}
 fi
 
 # Set ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=22'
@@ -64,7 +63,6 @@ if ! grep "${work_dir}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1; then
   # Add to plugins before loading oh-my-zsh
   line_num=$(egrep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
   sed -i "${line_num} i plugins+=(zsh-autosuggestions)" "${ZSHRC_PATH}"
-  unset ${line_num}
 fi
 
 # Add myenv to zsh
