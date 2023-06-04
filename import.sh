@@ -8,6 +8,8 @@ MYENV_DIR=$(dirname "${this_file_path}")
 export MYENV_DIR
 MYENV_AUTOUPDATE=true
 export MYENV_AUTOUPDATE
+MYENV_VERSION=$(git --git-dir="${MYENV_DIR}/.git" rev-parse --short HEAD)
+export MYENV_VERSION
 # Load lib
 source "${MYENV_DIR}/lib.sh"
 # Load environments
@@ -61,7 +63,7 @@ display_usage_2786926592856128937561728654782561829560735() {
     sleep 0.05
   done
   # print the current version of myenv
-  printf "Current version: %s\n" "$(git --git-dir="${MYENV_DIR}/.git" rev-parse --short HEAD)"
+  myenv_lib_983459816_typing_style_print "Current version: ${MYENV_VERSION}"; printf "\n"
 }
 
 myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623547265472549126354(){
