@@ -130,6 +130,7 @@ myenv_lib_983459816_update(){
     if [ "${remoteLastCommit}" != "${localLastCommit}" ]; then
       myenv_lib_983459816_typing_style_print "MYENV is having an update, do you want to update (y/n)? "
       if myenv_lib_983459816_confirm; then
+        git --git-dir="${gitDir}" pull origin main
         git --git-dir="${gitDir}" checkout main
         exec "${SHELL}"
       else
