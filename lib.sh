@@ -148,7 +148,7 @@ myenv_lib_983459816_update(){
           exec "${SHELL}"
         fi
         
-        myenv_lib_983459816_typing_style_print "myenv is up to date"; printf "\n"
+        myenv_lib_983459816_typing_style_print "myenv is up to date, version: ${MYENV_VERSION}"; printf "\n"
       fi
     fi
   fi
