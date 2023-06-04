@@ -1,4 +1,5 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+# This script is designed to run independently
 myenv_package_managers_632264331_exitcode=255
 #### Define all methods here like an interface
 ### Example method to define
@@ -18,7 +19,7 @@ if [[ -z "${MYENV_PACKAGE_MANAGER}" ]]; then
   return ${myenv_package_managers_632264331_exitcode}
 fi
 # Load package_managers/[packageManager].sh for overriding
-myenv_package_managers_632264331_file="${MYENV_DIR}/package_managers/${MYENV_PACKAGE_MANAGER}.sh"
+myenv_package_managers_632264331_file="$(dirname "$(readlink -f "${(%):-%x}")")/package_managers/${MYENV_PACKAGE_MANAGER}.sh"
 if [ -r "${myenv_package_managers_632264331_file}" ]; then
   # shellcheck source=package_managers/[packageManager].sh
   source "${myenv_package_managers_632264331_file}"
