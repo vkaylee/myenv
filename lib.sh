@@ -111,8 +111,7 @@ lib_set_command_aliases_983459816542476252(){
 
 lib_confirm_983459816542476252()
 {
-  read -r -s input
-  echo "${input}"
+  read -r input
   case "${input}" in
     [Yy]* ) return 0;;
     * ) return 1;;
