@@ -21,21 +21,21 @@ myenv_show_envs_876892765834465872652357846459283659(){
 
   # Print envLine
   local envCount=0
-  lib_typing_style_print_983459816542476252 "Environment variables (ordered by key):"; printf "\n"
+  myenv_lib_983459816_typing_style_print "Environment variables (ordered by key):"; printf "\n"
   while read -r envLine; do
     if [[ -n "${envLine}" ]]; then
       ((envCount++))
-      lib_typing_style_print_983459816542476252 "- (${envCount}) ${envLine}"; printf "\n"
+      myenv_lib_983459816_typing_style_print "- (${envCount}) ${envLine}"; printf "\n"
     fi
   done < <(echo -e "${envLines}" | sort -u -t '=' -k 1)
 
   # Print env file paths
   local envFileCount=0
-  lib_typing_style_print_983459816542476252 "Envs are loaded from:"; printf "\n"
+  myenv_lib_983459816_typing_style_print "Envs are loaded from:"; printf "\n"
   for envPath in "${myenv_env_file_paths_876892765834465872652357846459283659[@]}" ; do
     if [[ -n "${envPath}" ]]; then
       ((envFileCount++))
-      lib_typing_style_print_983459816542476252 "- (${envFileCount}) ${envPath}"; printf "\n"
+      myenv_lib_983459816_typing_style_print "- (${envFileCount}) ${envPath}"; printf "\n"
     fi
   done
 }
@@ -61,7 +61,7 @@ myenv_set_envs_876892765834465872652357846459283659(){
       myenv_env_file_paths_876892765834465872652357846459283659+=("${envFilePath}")
     fi
     set +a
-    lib_typing_style_print_983459816542476252 "Some environment variables in ${envFilePath} have been set!"
+    myenv_lib_983459816_typing_style_print "Some environment variables in ${envFilePath} have been set!"
     printf '\n'
   fi
 }

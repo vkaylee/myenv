@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
-# Namespace: start with lib_ and end with _983459816542476252
+# Namespace: start with myenv_lib_983459816_ and end with 
 # Define an array to store all guideline about all aliases
-alias_array_983459816542476252=()
+myenv_lib_983459816_alias_array=()
 
-lib_typing_style_print_983459816542476252(){
+myenv_lib_983459816_typing_style_print(){
   local my_print_text="${1-}"
   local typing_speed="${2-0.005}"
   for ((i=0; i<=${#my_print_text}; i++)); do
@@ -11,28 +11,28 @@ lib_typing_style_print_983459816542476252(){
       sleep "${typing_speed}"
   done
 }
-lib_array_printer_983459816542476252(){
+myenv_lib_983459816_array_printer(){
   # 1: "${myArray[@]}"
   local myArray=("$@")
   for item in "${myArray[@]}";do
-    lib_typing_style_print_983459816542476252 "- ${item}" 0.00025
+    myenv_lib_983459816_typing_style_print "- ${item}" 0.00025
     printf '\n'
     sleep 0.05
   done
 }
 
-lib_set_alias_array_983459816542476252(){
+myenv_lib_983459816_set_alias_array(){
   local value="${1-}"
   if [ -n "${value}" ]; then
-    alias_array_983459816542476252+=("${value}")
+    myenv_lib_983459816_alias_array+=("${value}")
   fi
 }
-lib_print_alias_array_983459816542476252(){
-  lib_array_printer_983459816542476252 "${alias_array_983459816542476252[@]}"
+myenv_lib_983459816_print_alias_array(){
+  myenv_lib_983459816_array_printer "${myenv_lib_983459816_alias_array[@]}"
 }
 # This function is used to check the existent command or not
-lib_has_command_983459816542476252(){
-  # Usage: lib_has_command_983459816542476252 <command_name>
+myenv_lib_983459816_has_command(){
+  # Usage: myenv_lib_983459816_has_command <command_name>
   # Check whether a command exists
   # $1 the actual command you want to check
   # Aliases included by option -v
@@ -42,7 +42,7 @@ lib_has_command_983459816542476252(){
   fi
   return 1 # does not exist
 }
-lib_set_alias_command_983459816542476252(){
+myenv_lib_983459816_set_alias_command(){
   # Input:
   # $1: The alias command that you want to register
   # $2: The command string
@@ -56,7 +56,7 @@ lib_set_alias_command_983459816542476252(){
     return 0
   fi
   
-  if ! lib_has_command_983459816542476252 "${aliasCommand}" > /dev/null 2>&1; then
+  if ! myenv_lib_983459816_has_command "${aliasCommand}" > /dev/null 2>&1; then
     # shellcheck disable=SC2139
     alias "${aliasCommand}"="${realCommand}"
     echo "You can use command '${aliasCommand}' as '${realCommand}'"
@@ -66,20 +66,20 @@ lib_set_alias_command_983459816542476252(){
   return 1
 }
 
-lib_set_command_aliases_983459816542476252(){
+myenv_lib_983459816_set_command_aliases(){
   local aliases=$1
   local realCommand=$2
   local description=$3
   local directedShow="${4:-false}"
 
-  aliasCommands=(${(@s:,:)aliases})
+  local aliasCommands=(${(@s:,:)aliases})
 
   local okAliasesStr=()
   local noOkAliasesStr=()
   local delimiter=','
 
   for command in ${aliasCommands[@]}; do
-    if lib_set_alias_command_983459816542476252 "${command}" "${realCommand}" > /dev/null 2>&1; then
+    if myenv_lib_983459816_set_alias_command "${command}" "${realCommand}" > /dev/null 2>&1; then
       if [[ -n "${okAliasesStr}" ]]; then
         okAliasesStr="${okAliasesStr}${delimiter}${command}"
       else
@@ -102,14 +102,14 @@ lib_set_command_aliases_983459816542476252(){
     retStr="${retStr} (Can't register: ${noOkAliasesStr})"
   fi
   if $directedShow ; then
-    lib_typing_style_print_983459816542476252 "${retStr}" 0.005
+    myenv_lib_983459816_typing_style_print "${retStr}" 0.005
     printf "\n"
   else
-    lib_set_alias_array_983459816542476252 "${retStr}"
+    myenv_lib_983459816_set_alias_array "${retStr}"
   fi
 }
 
-lib_confirm_983459816542476252()
+myenv_lib_983459816_confirm()
 {
   read -r input
   case "${input}" in
