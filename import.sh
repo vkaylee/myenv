@@ -15,15 +15,15 @@ source "${MYENV_DIR}/env.sh"
 
 # Check update
 # This feature is enable by default, disable it by adding MYENV_AUTOUPDATE=false to your env file
-if $MYENV_AUTOUPDATE && git fetch origin > /dev/null 2>&1; then
-  remoteLastCommit="$(git log origin/main | head -1 | awk '{print $2}')"
-  localLastCommit="$(git log | head -1 | awk '{print $2}')"
+if $MYENV_AUTOUPDATE && git --git-dir="${MYENV_DIR}/.git" fetch origin > /dev/null 2>&1; then
+  remoteLastCommit="$(git --git-dir="${MYENV_DIR}/.git" log origin/main | head -1 | awk '{print $2}')"
+  localLastCommit="$(git --git-dir="${MYENV_DIR}/.git" log | head -1 | awk '{print $2}')"
   if [ "${remoteLastCommit}" != "${localLastCommit}" ]; then
     lib_typing_style_print_983459816542476252 "MYENV is having an update, do you want to update (y/n)? "
     if lib_confirm_983459816542476252; then
-      git remote set-url origin https://github.com/vleedev/myenv.git
-      git pull origin main
-      git checkout main
+      git --git-dir="${MYENV_DIR}/.git" remote set-url origin https://github.com/vleedev/myenv.git
+      git --git-dir="${MYENV_DIR}/.git" pull origin main
+      git --git-dir="${MYENV_DIR}/.git" checkout main
       exec "${SHELL}"
     else
       lib_typing_style_print_983459816542476252 "Disable auto update by adding MYENV_AUTOUPDATE=false to your env file"
