@@ -139,6 +139,12 @@ myenv_lib_983459816_update(){
       fi
     else
       if ${isManual}; then
+        # Check for MYENV_VERSION
+        if [[ "${remoteLastCommit}" != "${MYENV_VERSION}" ]]; then
+          # Restart shell
+          exec "${SHELL}"
+        fi
+        
         myenv_lib_983459816_typing_style_print "myenv is up to date"; printf "\n"
       fi
     fi
