@@ -143,6 +143,7 @@ myenv_lib_983459816_update(){
       if ${isManual}; then
         # Check for MYENV_VERSION
         if [[ "${remoteLastCommit}" != "${MYENV_VERSION}" ]]; then
+          myenv_lib_983459816_typing_style_print "Restart your shell ${SHELL}"; printf "\n"
           # Restart shell
           exec "${SHELL}"
         fi
