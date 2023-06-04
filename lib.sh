@@ -117,3 +117,27 @@ myenv_lib_983459816_confirm()
     * ) return 1;;
   esac
 }
+
+myenv_lib_983459816_update(){
+  local isManual=${1-false}
+  if git --git-dir="${MYENV_DIR}/.git" fetch origin > /dev/null 2>&1; then
+    remoteLastCommit="$(git --git-dir="${MYENV_DIR}/.git" log origin/main | head -1 | awk '{print $2}')"
+    localLastCommit="$(git --git-dir="${MYENV_DIR}/.git" log | head -1 | awk '{print $2}')"
+    if [ "${remoteLastCommit}" != "${localLastCommit}" ]; then
+      myenv_lib_983459816_typing_style_print "MYENV is having an update, do you want to update (y/n)? "
+      if myenv_lib_983459816_confirm; then
+        git --git-dir="${MYENV_DIR}/.git" remote set-url origin https://github.com/vleedev/myenv.git
+        git --git-dir="${MYENV_DIR}/.git" pull origin main
+        git --git-dir="${MYENV_DIR}/.git" checkout main
+        exec "${SHELL}"
+      else
+        myenv_lib_983459816_typing_style_print "Disable auto update by adding MYENV_AUTOUPDATE=false to your env file"
+        printf "\n"
+      fi
+    else
+      if ${isManual}; then
+        myenv_lib_983459816_typing_style_print "myenv is up to date"; printf "\n"
+      fi
+    fi
+  fi
+}

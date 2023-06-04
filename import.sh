@@ -17,21 +17,8 @@ source "${MYENV_DIR}/env.sh"
 
 # Check update
 # This feature is enable by default, disable it by adding MYENV_AUTOUPDATE=false to your env file
-if $MYENV_AUTOUPDATE && git --git-dir="${MYENV_DIR}/.git" fetch origin > /dev/null 2>&1; then
-  remoteLastCommit="$(git --git-dir="${MYENV_DIR}/.git" log origin/main | head -1 | awk '{print $2}')"
-  localLastCommit="$(git --git-dir="${MYENV_DIR}/.git" log | head -1 | awk '{print $2}')"
-  if [ "${remoteLastCommit}" != "${localLastCommit}" ]; then
-    myenv_lib_983459816_typing_style_print "MYENV is having an update, do you want to update (y/n)? "
-    if myenv_lib_983459816_confirm; then
-      git --git-dir="${MYENV_DIR}/.git" remote set-url origin https://github.com/vleedev/myenv.git
-      git --git-dir="${MYENV_DIR}/.git" pull origin main
-      git --git-dir="${MYENV_DIR}/.git" checkout main
-      exec "${SHELL}"
-    else
-      myenv_lib_983459816_typing_style_print "Disable auto update by adding MYENV_AUTOUPDATE=false to your env file"
-      printf "\n"
-    fi
-  fi
+if $MYENV_AUTOUPDATE; then
+  myenv_lib_983459816_update
 fi
 
 # Load detect.sh script
@@ -51,6 +38,7 @@ display_usage_2786926592856128937561728654782561829560735() {
   typeset -A argvs=()
   argvs[aliases]='Show all aliases'
   argvs[envs]='Show all envs are set by myenv'
+  argvs[update]='Update myenv'
 
 	myenv_lib_983459816_typing_style_print "Usage: myenv [arguments]"
 	printf "\n"
@@ -74,6 +62,9 @@ myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623
     ;;
   envs)
     myenv_env_876892765_show_envs
+    ;;
+  update)
+    myenv_lib_983459816_update true
     ;;
   *)
     display_usage_2786926592856128937561728654782561829560735
