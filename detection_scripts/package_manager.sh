@@ -5,7 +5,7 @@
 # source <(wget -qO- "${url}/package_manager.sh")
 set -e
 if [[ -n "${MYENV_DEBUG}" ]]; then
-  set -ux
+  set -x
 fi
 
 

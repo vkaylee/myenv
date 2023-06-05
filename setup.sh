@@ -2,7 +2,7 @@
 # Exit on any error
 set -e
 if [[ -n "${MYENV_DEBUG}" ]]; then
-  set -ux
+  set -x
 fi
 
 github_url="https://raw.githubusercontent.com/vleedev/myenv/main"
