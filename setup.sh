@@ -112,3 +112,6 @@ grep "${MYENV_DIR}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1 || tee -a "${ZSHRC
 # Load customize configuration myenv
 source "${MYENV_DIR}/import.sh"
 EOF
+
+# Restart shell
+exec "$(which zsh)"
