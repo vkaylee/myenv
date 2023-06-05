@@ -18,7 +18,7 @@ for downloadTool in "curl" "wget"; do
       if [[ "${downloadTool}" == "wget" ]]; then
         options="-O-"
       fi
-      eval "${downloadTool} --no-cache ${options} ${url}"
+      eval "${downloadTool} ${options} ${url}?$(date +%s)"
     }
     break
   fi
