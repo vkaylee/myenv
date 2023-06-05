@@ -7,22 +7,21 @@ work_dir=$(dirname "${this_file_path}")
 github_url="https://raw.githubusercontent.com/vleedev/myenv/main"
 
 # The method to download and echo to current screen
-myenv_setup_663358564_download(){
+myenv_setup_663358564_load_script_url(){
   echo "Please install curl or wget first"
   exit 1
 }
 # Detect download tool
-for downloadTool in "wget" "curl"; do
+for downloadTool in "curl" "wget"; do
   if command -v "${downloadTool}" >/dev/null 2>&1; then
-    myenv_setup_663358564_download_options="-qO- -r" # Default option for wget
-    if [[ "${downloadTool}" == "curl" ]]; then
-      myenv_setup_663358564_download_options="-sSL"
-    fi
+    myenv_setup_663358564_load_script_url_options="-sSL" # Default option for curl
+    if [[ "${downloadTool}" == "wget" ]]; then
+      myenv_setup_663358564_load_script_url_options="-O-"
     
     # Override the myenv_setup_663358564_download method
-    myenv_setup_663358564_download(){
+    myenv_setup_663358564_load_script_url(){
       local url="${1-}"
-      eval "${downloadTool} ${myenv_setup_663358564_download_options} ${url}"
+      eval "${downloadTool} ${myenv_setup_663358564_load_script_url_options} ${url}"
     }
     break
   fi
