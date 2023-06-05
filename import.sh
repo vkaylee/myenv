@@ -19,8 +19,8 @@ if $MYENV_AUTOUPDATE; then
   myenv_lib_983459816_update
 fi
 
-# Load detect.sh script
-source "${MYENV_DIR}/detect.sh"
+# Load detect package_manager script
+source "${MYENV_DIR}/detection_scripts/package_manager.sh"
 
 # Load some init for package managers
 source "${MYENV_DIR}/package_managers.sh"

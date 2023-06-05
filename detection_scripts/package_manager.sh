@@ -1,12 +1,12 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+# Use by
+# source <(cat "${DIR}/package_manager.sh")
+# source <(curl -sSL "${url}/package_manager.sh")
+# source <(wget -qO- "${url}/package_manager.sh")
+
 if [[ -n "${MYENV_PACKAGE_MANAGER}" ]]; then
   return
 fi
-
-# Check if package manager exists
-myenv_detect_2989829823_check_package_manager() {
-  command -v "${1}" >/dev/null 2>&1
-}
 
 # Package managers to check
 myenv_detect_2989829823_package_managers=(
@@ -28,8 +28,10 @@ myenv_detect_2989829823_package_managers=(
 
 # Iterate over package managers and check their availability
 for manager in "${myenv_detect_2989829823_package_managers[@]}"; do
-  if myenv_detect_2989829823_check_package_manager "${manager}"; then
-    export MYENV_PACKAGE_MANAGER="${manager}"
+  if command -v "${manager}" >/dev/null 2>&1; then
+    echo "MYENV_PACKAGE_MANAGER=${manager}"
     break
   fi
 done
+
+unet ${myenv_detect_2989829823_package_managers}
