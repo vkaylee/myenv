@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Exit on any error
 set -e
+if [[ -n "${MYENV_DEBUG}" ]]; then
+  set -ux
+fi
+
 github_url="https://raw.githubusercontent.com/vleedev/myenv/main"
 
 # The method to download and echo to current screen
