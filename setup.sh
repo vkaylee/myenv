@@ -4,13 +4,14 @@ set -e
 if [[ -n "${MYENV_DEBUG}" ]]; then
   set -x
 fi
-
+# Use this session to url when using curl wget to avoid caching
+MYENV_SESSION_TIME="$(date +%s)"
 github_url="https://raw.githubusercontent.com/vleedev/myenv/main"
 
 # The method to download and echo to current screen
 myenv_setup_663358564_load_script_url(){
   echo "Please install curl or wget first"
-  exit 1
+  return 1
 }
 # Detect download tool
 for downloadTool in "curl" "wget"; do
@@ -18,25 +19,30 @@ for downloadTool in "curl" "wget"; do
     # Override the myenv_setup_663358564_load_script_url method
     myenv_setup_663358564_load_script_url(){
       local url="${1-}"
-      local options="-sSL" # Default option for curl
+      # The option --fail or --no-clobber will treat error if a request is a http error code
+      local options="--fail -sSL" # Default option for curl
       if [[ "${downloadTool}" == "wget" ]]; then
-        options="-O-"
+        options="--no-clobber -O-"
       fi
-      eval "${downloadTool} ${options} ${url}\?$(date +%s)"
+      eval "${downloadTool} ${options} ${url}"
     }
     break
   fi
 done
 
 # Detect package manager first
-source <(myenv_setup_663358564_load_script_url "${github_url}/detection_scripts/package_manager.sh")
+# Source the stdout, ignore stderr
+# shellcheck source=detection_scripts/package_manager.sh
+source <(myenv_setup_663358564_load_script_url "${github_url}/detection_scripts/package_manager.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
 if [[ -z "${MYENV_PACKAGE_MANAGER}" ]]; then
   echo "Package manager is not found"
   exit 1
 fi
 
 # Load utils
-source <(myenv_setup_663358564_load_script_url "${github_url}/package_managers/${MYENV_PACKAGE_MANAGER}.sh")
+# Source the stdout, ignore stderr
+# shellcheck source=package_managers/[package_manager].sh
+source <(myenv_setup_663358564_load_script_url "${github_url}/package_managers/apt.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
 
 USER_DIR="$(echo ~)"
 # Install zsh
