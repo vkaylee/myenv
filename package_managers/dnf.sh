@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 myenv_package_managers_632264331_install(){
   local packageName="${1-}"
