@@ -42,7 +42,7 @@ fi
 # Load utils
 # Source the stdout, ignore stderr
 # shellcheck source=package_managers/[package_manager].sh
-source <(myenv_setup_663358564_load_script_url "${github_url}/package_managers/apt.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
+source <(myenv_setup_663358564_load_script_url "${github_url}/package_managers/${MYENV_PACKAGE_MANAGER}.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
 
 # Install git
 myenv_package_managers_632264331_install git
