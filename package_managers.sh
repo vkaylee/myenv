@@ -11,7 +11,9 @@ myenv_package_managers_632264331_exitcode=255
 
 myenv_package_managers_632264331_install(){
   local packageName="${1-}"
-  echo "${packageName}"
+  local command="${2-packageName}"
+  echo "Package name: ${packageName}"
+  echo "Command: ${command}"
   return ${myenv_package_managers_632264331_exitcode}
 }
 
