@@ -34,4 +34,4 @@ for manager in "${myenv_detect_2989829823_package_managers[@]}"; do
   fi
 done
 
-unset ${myenv_detect_2989829823_package_managers}
+unset myenv_detect_2989829823_package_managers
