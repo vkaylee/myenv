@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # Exit on any error
 set -e
-# Take working directory
-this_file_path="$(readlink -f "$0")"
-work_dir=$(dirname "${this_file_path}")
 github_url="https://raw.githubusercontent.com/vleedev/myenv/main"
 
 # The method to download and echo to current screen
@@ -92,14 +89,26 @@ fi
 # Set ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=22'
 sed -i 's/fg=[0-9]*/fg=22/g' "${zsh_autosuggestions_dir}/src/config.zsh"
 
-if ! grep "${work_dir}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1; then
+# Clone myenv
+# Default dir will be ${USER_DIR}/.myenv
+# If you want to change it, set MYENV_DIR before running this script
+if [[ -z "${MYENV_DIR}" ]]; then
+  MYENV_DIR="${USER_DIR}/.myenv"
+fi
+
+if ! git clone https://github.com/vleedev/myenv.git "${MYENV_DIR}"; then
+  echo "Can not clone myenv to ${MYENV_DIR}"
+  exit 1
+fi
+
+if ! grep "${MYENV_DIR}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1; then
   # Add to plugins before loading oh-my-zsh
   line_num=$(egrep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
   sed -i "${line_num} i plugins+=(zsh-autosuggestions)" "${ZSHRC_PATH}"
 fi
 
 # Add myenv to zsh
-grep "${work_dir}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1 || tee -a "${ZSHRC_PATH}" >/dev/null 2>&1 <<EOF
+grep "${MYENV_DIR}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1 || tee -a "${ZSHRC_PATH}" >/dev/null 2>&1 <<EOF
 # Load customize configuration myenv
-source "${work_dir}/import.sh"
+source "${MYENV_DIR}/import.sh"
 EOF
