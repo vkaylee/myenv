@@ -1,9 +1,43 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Exit on any error
 set -e
 # Take working directory
 this_file_path="$(readlink -f "$0")"
 work_dir=$(dirname "${this_file_path}")
+github_url="https://raw.githubusercontent.com/vleedev/myenv/main"
+
+# The method to download and echo to current screen
+myenv_setup_663358564_download(){
+  echo "Please install curl or wget first"
+  exit 1
+}
+# Detect download tool
+for downloadTool in "wget" "curl"; do
+  if command -v "${downloadTool}" >/dev/null 2>&1; then
+    myenv_setup_663358564_download_options="-qO- -r" # Default option for wget
+    if [[ "${downloadTool}" == "curl" ]]; then
+      myenv_setup_663358564_download_options="-sSL"
+    fi
+    
+    # Override the myenv_setup_663358564_download method
+    myenv_setup_663358564_download(){
+      local url="${1-}"
+      eval "${downloadTool} ${myenv_setup_663358564_download_options} ${url}"
+    }
+    break
+  fi
+done
+
+# Detect package manager first
+source <(myenv_setup_663358564_download "${github_url}/detection_scripts/package_manager.sh")
+if [[ -z "${MYENV_PACKAGE_MANAGER}" ]]; then
+  echo "Package manager is not found"
+  exit 1
+fi
+
+# Load utils
+source <(myenv_setup_663358564_download "${github_url}/package_managers/${MYENV_PACKAGE_MANAGER}.sh")
+
 USER_DIR="$(echo ~)"
 # Install zsh
 if ! command -v "zsh" >/dev/null 2>&1; 
