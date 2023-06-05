@@ -47,24 +47,11 @@ source <(myenv_setup_663358564_load_script_url "${github_url}/package_managers/a
 # Install git
 myenv_package_managers_632264331_install git
 
-USER_DIR="$(echo ~)"
 # Install zsh
-if ! command -v "zsh" >/dev/null 2>&1; 
-then
-  # Install zsh by apt-get command line
-  if command -v "apt-get" >/dev/null 2>&1; 
-  then
-    sudo apt-get update && sudo apt-get install -y zsh
-  # Install zsh by apt-get command line
-  elif command -v "dnf" >/dev/null 2>&1;
-  then
-    sudo dnf update && sudo dnf install -y zsh
-  else
-    # Implement more for yum, dnf, brew
-    echo "your current system is not supported this time"
-    exit 1
-  fi
-fi
+myenv_package_managers_632264331_install zsh
+
+USER_DIR="$(echo ~)"
+
 # make zsh as default shell for the user
 if [ "${SHELL}" != "$(which zsh)" ]; then
   zsh_path=$(which zsh)
