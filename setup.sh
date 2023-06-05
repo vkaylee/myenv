@@ -44,6 +44,9 @@ fi
 # shellcheck source=package_managers/[package_manager].sh
 source <(myenv_setup_663358564_load_script_url "${github_url}/package_managers/apt.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
 
+# Install git
+myenv_package_managers_632264331_install git
+
 USER_DIR="$(echo ~)"
 # Install zsh
 if ! command -v "zsh" >/dev/null 2>&1; 

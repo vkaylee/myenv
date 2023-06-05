@@ -6,5 +6,5 @@ myenv_package_managers_632264331_install(){
     return
   fi
   sudo dnf update
-  sudo dnf install "${packageName}"
+  sudo dnf install -y "${packageName}"
 }
