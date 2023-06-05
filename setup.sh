@@ -55,6 +55,11 @@ USER_DIR="$(echo ~)"
 # make zsh as default shell for the user
 if [ "${SHELL}" != "$(which zsh)" ]; then
   zsh_path=$(which zsh)
+  # Check /etc/shells list
+  if ! grep "${zsh_path}" < "/etc/shells"; then
+    echo "${zsh_path}" | sudo tee -a "/etc/shells" > /dev/null
+  fi
+  # Set default
   if command -v "chsh" >/dev/null 2>&1; 
   then
     sudo chsh -s "${zsh_path}" ${USER}
