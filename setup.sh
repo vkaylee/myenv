@@ -65,6 +65,11 @@ if [ "${SHELL}" != "$(which zsh)" ]; then
     echo "your current system is not supported to set zsh as default shell"
     exit 2
   fi
+  # Check user shell
+  if ! grep "^${USER}:" < "/etc/passwd" | grep "$(which zsh)"; then
+    echo "your shell is not changed"
+    exit 2
+  fi
 fi
 # Install oh-my-zsh
 if [ -d "${USER_DIR}/.oh-my-zsh" ]; then
