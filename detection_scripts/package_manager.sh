@@ -29,7 +29,7 @@ myenv_detect_2989829823_package_managers=(
 # Iterate over package managers and check their availability
 for manager in "${myenv_detect_2989829823_package_managers[@]}"; do
   if command -v "${manager}" >/dev/null 2>&1; then
-    echo "MYENV_PACKAGE_MANAGER=${manager}"
+    export "MYENV_PACKAGE_MANAGER=${manager}"
     break
   fi
 done
