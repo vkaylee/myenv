@@ -8,7 +8,7 @@ myenv_package_managers_632264331_install(){
   if [[ ${packageName} == "git" ]]; then
     # For Ubuntu, this PPA provides the latest stable upstream Git version
     if command -v "add-apt-repository" >/dev/null 2>&1; then
-      sudo add-apt-repository ppa:git-core/ppa
+      sudo add-apt-repository --yes ppa:git-core/ppa
     fi
   fi
   sudo apt update
