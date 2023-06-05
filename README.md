@@ -13,7 +13,15 @@
     - Kubernetes command line interface: `kubectl`, `kctl`
 - Provision environment for testing by using command `mycontainer`
 ## Quick start:
-`Bash` shell must be `pre-installed` to run `setup.sh`
+`Bash` shell, `curl` or `wget` tool must be `pre-installed` to run `setup.sh`
+```bash
+bash <(curl -sSL "https://raw.githubusercontent.com/vleedev/myenv/main/setup.sh?$(date +%s)")
+```
+or
+```bash
+bash <(wget -O- "https://raw.githubusercontent.com/vleedev/myenv/main/setup.sh?$(date +%s)")
+```
+or
 ```bash
 git clone https://github.com/vleedev/myenv.git && \
 ./myenv/setup.sh
