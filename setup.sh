@@ -70,7 +70,7 @@ fi
 if [ -d "${USER_DIR}/.oh-my-zsh" ]; then
   rm -rf "${USER_DIR}/.oh-my-zsh"
 fi
-yes Y | bash -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+yes Y | bash -c "$(myenv_setup_663358564_load_script_url https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # Install plugin zsh-autosuggestions
 zsh_autosuggestions_dir="${USER_DIR}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 if [ -d "${zsh_autosuggestions_dir}" ]; then
