@@ -11,7 +11,7 @@ myenv_setup_663358564_load_script_url(){
 # Detect download tool
 for downloadTool in "curl" "wget"; do
   if command -v "${downloadTool}" >/dev/null 2>&1; then
-    # Override the myenv_setup_663358564_download method
+    # Override the myenv_setup_663358564_load_script_url method
     myenv_setup_663358564_load_script_url(){
       local url="${1-}"
       local options="-sSL" # Default option for curl
@@ -25,14 +25,14 @@ for downloadTool in "curl" "wget"; do
 done
 
 # Detect package manager first
-source <(myenv_setup_663358564_download "${github_url}/detection_scripts/package_manager.sh")
+source <(myenv_setup_663358564_load_script_url "${github_url}/detection_scripts/package_manager.sh")
 if [[ -z "${MYENV_PACKAGE_MANAGER}" ]]; then
   echo "Package manager is not found"
   exit 1
 fi
 
 # Load utils
-source <(myenv_setup_663358564_download "${github_url}/package_managers/${MYENV_PACKAGE_MANAGER}.sh")
+source <(myenv_setup_663358564_load_script_url "${github_url}/package_managers/${MYENV_PACKAGE_MANAGER}.sh")
 
 USER_DIR="$(echo ~)"
 # Install zsh
