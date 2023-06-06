@@ -18,7 +18,7 @@ myenv_package_managers_632264331_install(){
 }
 
 if [[ -z "${MYENV_PACKAGE_MANAGER}" ]]; then
-  return ${myenv_package_managers_632264331_exitcode}
+  exit ${myenv_package_managers_632264331_exitcode}
 fi
 # Load package_managers/[packageManager].sh for overriding
 myenv_package_managers_632264331_file="$(dirname "$(readlink -f "${(%):-%x}")")/package_managers/${MYENV_PACKAGE_MANAGER}.sh"
@@ -41,5 +41,5 @@ for functionName in $(print -l ${(ok)functions} | grep '^myenv_package_managers_
 done
 
 if [[ ${myenv_package_managers_632264331_need_implement_count} -ne 0 ]]; then
-  return ${myenv_package_managers_632264331_exitcode}
+  exit ${myenv_package_managers_632264331_exitcode}
 fi
