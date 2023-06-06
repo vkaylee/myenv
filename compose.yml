@@ -1,0 +1,9 @@
+services:
+  ubuntu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ubuntu
+    # command: tail -f /proc/1/fd/1
+    command: tail -f /dev/null
+    user: docker
