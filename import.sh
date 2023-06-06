@@ -2,7 +2,6 @@
 # Put this one into your shell load script
 ## Load customize configuration myenv
 #source "${HOME}/Documents/myenv/import.sh"
-set -e
 # Take working directory
 this_file_path="$(readlink -f "${(%):-%x}")"
 MYENV_DIR=$(dirname "${this_file_path}")
