@@ -23,6 +23,7 @@ if [ "$(command -v docker)" ]; then
     # Add google cloud cli
     myenv_lib_983459816_set_command_aliases 'gcloud,gcli' "docker run --rm -ti --name gcloud -e CLOUDSDK_CONFIG=/config/mygcloud -v ${MYENV_APPCONFIG_DIR}/google_cloud/mygcloud:/config/mygcloud -v ${MYENV_APPCONFIG_DIR}/google_cloud:/certs gcr.io/google.com/cloudsdktool/google-cloud-cli gcloud" 'Google cloud command line tool'
     myenv_lib_983459816_set_command_aliases 'gshell' 'gcloud cloud-shell ssh --authorize-session' 'Google cloud shell'
+    myenv_lib_983459816_set_command_aliases 'flyctl,flyio,fly' "docker run --rm -ti --name flyio -v ${MYENV_APPCONFIG_DIR}/flyio:/.fly flyio/flyctl" 'Fly is a platform for running full stack apps and databases close to your users'
 fi
 
 # Add kubectl
