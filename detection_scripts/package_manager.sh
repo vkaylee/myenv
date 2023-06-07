@@ -3,7 +3,6 @@
 # source <(cat "${DIR}/package_manager.sh")
 # source <(curl -sSL "${url}/package_manager.sh")
 # source <(wget -qO- "${url}/package_manager.sh")
-set -e
 if [[ -n "${MYENV_DEBUG}" ]]; then
   set -x
 fi
