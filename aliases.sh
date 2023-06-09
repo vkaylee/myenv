@@ -27,7 +27,7 @@ if [ "$(command -v docker)" ]; then
     # Add mitmproxy
     MITMPROXYD='MITM_PORT=${MITM_PORT:-8080} && MITM_WEB_PORT=${MITM_WEB_PORT:-8081} && '
     MITMPROXYD=${MITMPROXYD}'MITM_PORT=$(myenv_lib_983459816_take_unuse_port $MITM_PORT) && MITM_WEB_PORT=$(myenv_lib_983459816_take_unuse_port $MITM_WEB_PORT) && '
-    MITMPROXYD=${MITMPROXYD}'myenv_lib_983459816-docker_exec run --rm -it -p ${MITM_PORT}:${MITM_PORT} -p ${MITM_WEB_PORT}:${MITM_WEB_PORT} mitmproxy/mitmproxy'
+    MITMPROXYD=${MITMPROXYD}'myenv_lib_983459816-docker_exec run --rm -it -v ${MYENV_APPCONFIG_DIR}/mitmproxy:/home/mitmproxy/.mitmproxy -p ${MITM_PORT}:${MITM_PORT} -p ${MITM_WEB_PORT}:${MITM_WEB_PORT} mitmproxy/mitmproxy'
     myenv_lib_983459816_set_command_aliases 'mitmproxy,mitmp' ${MITMPROXYD}' mitmproxy -p ${MITM_PORT}' 'a man-in-the-middle proxy with a command-line interface'
     myenv_lib_983459816_set_command_aliases 'mitmdump,mitmd' ${MITMPROXYD}' mitmdump -p ${MITM_PORT}' 'mitmdump is the command-line companion to mitmproxy'
     myenv_lib_983459816_set_command_aliases 'mitmweb,mitmw' ${MITMPROXYD}' mitmweb -p ${MITM_PORT} --web-host 0.0.0.0 --web-port ${MITM_WEB_PORT}' 'a man-in-the-middle proxy with a web interface'
