@@ -218,3 +218,17 @@ myenv_lib_983459816_take_unuse_port() {
   fi
   return 1
 }
+
+myenv_lib_983459816-docker_exec(){
+    local err=
+    local errCode=0
+    # https://unix.stackexchange.com/questions/474177/how-to-redirect-stderr-in-a-variable-but-keep-stdout-in-the-console
+    # Take stderr to err variable
+    { err=$(docker "${@}" 2>&1 >&3 3>&-); } 3>&1
+    errCode=$?
+    if (( ${errCode} != 0 )); then
+      echo "The command: docker ${@}"
+      echo "The error: ${err}"
+    fi
+    return ${errCode}
+}
