@@ -24,7 +24,10 @@ if [ "$(command -v docker)" ]; then
     myenv_lib_983459816_set_command_aliases 'gcloud,gcli' "docker run --rm -ti --name gcloud -e CLOUDSDK_CONFIG=/config/mygcloud -v ${MYENV_APPCONFIG_DIR}/google_cloud/mygcloud:/config/mygcloud -v ${MYENV_APPCONFIG_DIR}/google_cloud:/certs gcr.io/google.com/cloudsdktool/google-cloud-cli gcloud" 'Google cloud command line tool'
     myenv_lib_983459816_set_command_aliases 'gshell' 'gcloud cloud-shell ssh --authorize-session' 'Google cloud shell'
     myenv_lib_983459816_set_command_aliases 'flyctl,flyio,fly' "docker run --rm -ti --name flyio -v ${MYENV_APPCONFIG_DIR}/flyio:/.fly flyio/flyctl" 'Fly is a platform for running full stack apps and databases close to your users'
-    MITMPROXYD='MITM_PORT=${MITM_PORT:-8080} && MITM_WEB_PORT=${MITM_WEB_PORT:-8081} && docker run --rm -it -p ${MITM_PORT}:${MITM_PORT} -p ${MITM_WEB_PORT}:${MITM_WEB_PORT} mitmproxy/mitmproxy'
+    # Add mitmproxy
+    MITMPROXYD='MITM_PORT=${MITM_PORT:-8080} && MITM_WEB_PORT=${MITM_WEB_PORT:-8081} && '
+    MITMPROXYD=${MITMPROXYD}'MITM_PORT=$(myenv_lib_983459816_take_unuse_port $MITM_PORT) && MITM_WEB_PORT=$(myenv_lib_983459816_take_unuse_port $MITM_WEB_PORT) && '
+    MITMPROXYD=${MITMPROXYD}'docker run --rm -it -p ${MITM_PORT}:${MITM_PORT} -p ${MITM_WEB_PORT}:${MITM_WEB_PORT} mitmproxy/mitmproxy'
     myenv_lib_983459816_set_command_aliases 'mitmproxy,mitmp' ${MITMPROXYD}' mitmproxy -p ${MITM_PORT}' 'a man-in-the-middle proxy with a command-line interface'
     myenv_lib_983459816_set_command_aliases 'mitmdump,mitmd' ${MITMPROXYD}' mitmdump -p ${MITM_PORT}' 'mitmdump is the command-line companion to mitmproxy'
     myenv_lib_983459816_set_command_aliases 'mitmweb,mitmw' ${MITMPROXYD}' mitmweb -p ${MITM_PORT} --web-host 0.0.0.0 --web-port ${MITM_WEB_PORT}' 'a man-in-the-middle proxy with a web interface'

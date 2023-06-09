@@ -153,3 +153,68 @@ myenv_lib_983459816_update(){
     fi
   fi
 }
+
+# TODO: check more with every tcp and udp, ipv4 and ipv6
+# We don't allow to run parallel by using myenv_lib_983459816_allocated_ports_mylock
+myenv_lib_983459816_allocated_ports_mylock=$(mktemp)
+myenv_lib_983459816_allocated_ports_file=$(mktemp)
+myenv_lib_983459816_allocated_ports=()
+typeset myenv_lib_983459816_allocated_ports > ${myenv_lib_983459816_allocated_ports_file}
+myenv_lib_983459816_take_unuse_port() {
+  # Read myenv_lib_983459816_allocated_ports_mylock
+  # Lock until released
+  while true; do
+      if [[ -z "$(cat $myenv_lib_983459816_allocated_ports_mylock)" ]]; then
+          echo 1 > ${myenv_lib_983459816_allocated_ports_mylock}
+          break
+      fi
+      continue
+  done
+  # Body function
+  # Load myenv_lib_983459816_allocated_ports
+  source ${myenv_lib_983459816_allocated_ports_file}
+  local defaultPort=${1:-}
+  local sockets=$(ss -lntpu | awk '{ print $5 }')
+  local returnPort=
+  # Check for default port
+  if [[ -n "${defaultPort}" ]]; then
+    if ! grep -w ":${defaultPort}$" <(echo ${sockets}) > /dev/null 2>&1; then
+      returnPort="${defaultPort}"
+    fi
+  fi
+  if [[ -z "${returnPort}" ]]; then
+    for port in {$(awk '{ print $1 }' /proc/sys/net/ipv4/ip_local_port_range)..$(awk '{ print $2 }' /proc/sys/net/ipv4/ip_local_port_range)};do
+      if ! grep -w ":${port}$" <(echo ${sockets}) > /dev/null 2>&1; then
+        # When the port does not exist in sockets
+        # Check allocated ports
+        if [[ ${myenv_lib_983459816_allocated_ports[(ie)$port]} -le ${#myenv_lib_983459816_allocated_ports} ]]; then
+          # port exists in the myenv_lib_983459816_allocated_ports
+          # Continue to check other ports in range
+          continue
+        fi
+        # The port does not exist in myenv_lib_983459816_allocated_ports
+        # Set it to returnPort
+        returnPort="${port}"
+        # Break the loop when having port
+        break
+      fi
+    done
+  fi
+  
+  if [[ -n "${returnPort}" ]]; then
+    # Append data
+    myenv_lib_983459816_allocated_ports+=( ${returnPort} )
+    # Set back to temp
+    echo "myenv_lib_983459816_allocated_ports=(${myenv_lib_983459816_allocated_ports})" > ${myenv_lib_983459816_allocated_ports_file}
+    # print out
+    echo ${returnPort}
+  fi
+
+  # Done
+  echo "" > ${myenv_lib_983459816_allocated_ports_mylock}
+  if [[ -n "${returnPort}" ]]; then
+    # Return here to be sure we reseted myenv_lib_983459816_allocated_ports_mylock
+    return 0
+  fi
+  return 1
+}
