@@ -13,7 +13,7 @@ myenv_env_876892765_show_envs(){
   local envLines=()
   # Take key value and format "key=value\n" for sorting
   for envKey envValue in "${(@kv)myenv_env_876892765_env_assarr}"; do
-    envLines+=( "${envKey}=${envValue}\n" )
+    envLines+=( "$(myenv_lib_983459816_set_color "${envKey}" '0;36')=$(myenv_lib_983459816_set_color "${envValue}" '1;36')\n" )
   done
 
   # Print envLine
@@ -32,7 +32,7 @@ myenv_env_876892765_show_envs(){
   for envPath in "${myenv_env_876892765_env_file_paths[@]}" ; do
     if [[ -n "${envPath}" ]]; then
       ((envFileCount++))
-      myenv_lib_983459816_typing_style_print "- (${envFileCount}) ${envPath}"; printf "\n"
+      myenv_lib_983459816_typing_style_print "- (${envFileCount}) $(myenv_lib_983459816_set_color ${envPath} '0;32')"; printf "\n"
     fi
   done
 }
@@ -49,7 +49,7 @@ myenv_env_876892765_set_envs(){
       if [[ -n "${envKey}" ]]; then
         # Take value by removing the envKey
         # Set key value to myenv_env_876892765_env_assarr
-        myenv_env_876892765_env_assarr["${envKey}"]="${envLine#"${envKey}="}"
+        myenv_env_876892765_env_assarr[${envKey}]=${envLine#"${envKey}="}
       fi
     done < <(myenv_env_876892765_read_envs "${envFilePath}")
     set -a
