@@ -241,15 +241,30 @@ myenv_lib_983459816_take_unuse_port() {
 }
 
 myenv_lib_983459816-docker_exec(){
+    local original_cmd="${@}"
+    local image=$1
+    shift 1
     local err=
     local errCode=0
-    # https://unix.stackexchange.com/questions/474177/how-to-redirect-stderr-in-a-variable-but-keep-stdout-in-the-console
-    # Take stderr to err variable
-    { err=$(docker "${@}" 2>&1 >&3 3>&-); } 3>&1
-    errCode=$?
-    if (( ${errCode} != 0 )); then
-      echo "The command: docker ${@}"
-      echo "The error: ${err}"
+    if [[ "${@}" =~ "(.+)::end_docker::(.*)" ]]; then
+      local docker_args="${match[1]}"
+      local query_args="${match[2]}"
+      # https://unix.stackexchange.com/questions/474177/how-to-redirect-stderr-in-a-variable-but-keep-stdout-in-the-console
+      # Take stderr to err variable
+      local the_docker_command="docker run --rm -it ${docker_args} ${image}"
+      local the_command="${the_docker_command} ${query_args}"
+      { err=$(eval "${the_command}" 2>&1 >&3 3>&-); } 3>&1
+      errCode=$?
+      if (( ${errCode} != 0 )); then
+        # Check the exit code for sure it's from docker or query args
+        echo "The command: '$(myenv_lib_983459816_set_color "${the_command}" '1;31')'"
+        echo "The error: '$(myenv_lib_983459816_set_color "${err}" '1;31')'"
+      fi
+    else
+      echo "The command is $(myenv_lib_983459816_set_color 'mismatched' '1;31')"
+      echo "The original input command: '$(myenv_lib_983459816_set_color "${original_cmd}" '1;31')'"
+      errCode=1
     fi
+    
     return ${errCode}
 }
