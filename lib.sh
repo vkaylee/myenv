@@ -25,7 +25,7 @@ myenv_lib_983459816_alias_array=()
 
 myenv_lib_983459816_typing_style_print(){
   local my_print_text="${1-}"
-  local typing_speed="${2-0.005}"
+  local typing_speed="${2-0.0005}"
   for ((i=0; i<=${#my_print_text}; i++)); do
       printf '%s' "${my_print_text:$i:1}"
       sleep "${typing_speed}"
