@@ -2,7 +2,7 @@
 # Namespace: start with myenv_lib_983459816_ and end with
 myenv_lib_983459816_set_color(){
   local text="${1}"
-  local colorCode="${2}"
+  local colorCode="${2-"1;31"}"
   # Colors for text:
     # Black        0;30     Dark Gray     1;30
     # Red          0;31     Light Red     1;31
@@ -99,7 +99,7 @@ myenv_lib_983459816_set_command_aliases(){
   local delimiter=','
 
   for command in ${aliasCommands[@]}; do
-    local commandTextStyle="$(myenv_lib_983459816_set_color "${command}" '1;31')"
+    local commandTextStyle="$(myenv_lib_983459816_set_color "${command}" '1;92')"
     if myenv_lib_983459816_set_alias_command "${command}" "${realCommand}" > /dev/null 2>&1; then
       if [[ -n "${okAliasesStr}" ]]; then
         okAliasesStr="${okAliasesStr}${delimiter}${commandTextStyle}"
@@ -257,12 +257,12 @@ myenv_lib_983459816-docker_exec(){
       errCode=$?
       if (( ${errCode} != 0 )); then
         # Check the exit code for sure it's from docker or query args
-        echo "The command: '$(myenv_lib_983459816_set_color "${the_command}" '1;31')'"
-        echo "The error: '$(myenv_lib_983459816_set_color "${err}" '1;31')'"
+        echo "The command: '$(myenv_lib_983459816_set_color "${the_command}")'"
+        echo "The error: '$(myenv_lib_983459816_set_color "${err}")'"
       fi
     else
-      echo "The command is $(myenv_lib_983459816_set_color 'mismatched' '1;31')"
-      echo "The original input command: '$(myenv_lib_983459816_set_color "${original_cmd}" '1;31')'"
+      echo "The command is $(myenv_lib_983459816_set_color 'mismatched')"
+      echo "The original input command: '$(myenv_lib_983459816_set_color "${original_cmd}")'"
       errCode=1
     fi
     

@@ -44,13 +44,13 @@ display_usage_2786926592856128937561728654782561829560735() {
   argvs[update]='Update myenv'
   argvs[reload]='Reload myenv'
 
-	myenv_lib_983459816_typing_style_print "Usage: myenv [$(myenv_lib_983459816_set_color 'arguments' '1;31')]"
+	myenv_lib_983459816_typing_style_print "Usage: myenv [$(myenv_lib_983459816_set_color 'arguments' '0;92')]"
 	printf "\n"
-	myenv_lib_983459816_typing_style_print "$(myenv_lib_983459816_set_color 'arguments' '1;31'):"
+	myenv_lib_983459816_typing_style_print "$(myenv_lib_983459816_set_color 'arguments' '0;92'):"
 	printf "\n"
 	for key in ${(k)argvs}; do
 	  printf "\t"
-    myenv_lib_983459816_typing_style_print "- $(myenv_lib_983459816_set_color "${key}" '1;31'): ${argvs[$key]}"
+    myenv_lib_983459816_typing_style_print "- $(myenv_lib_983459816_set_color "${key}" '0;92'): ${argvs[$key]}"
     printf "\n"
     sleep 0.05
   done

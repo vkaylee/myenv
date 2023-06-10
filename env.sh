@@ -58,7 +58,7 @@ myenv_env_876892765_set_envs(){
       myenv_env_876892765_env_file_paths+=("${envFilePath}")
     fi
     set +a
-    myenv_lib_983459816_typing_style_print "Some $(myenv_lib_983459816_set_color "environment variables" '1;92') in $(myenv_lib_983459816_set_color "${envFilePath}" '0;31') have been $(myenv_lib_983459816_set_color "set" '1;31')!"
+    myenv_lib_983459816_typing_style_print "Some $(myenv_lib_983459816_set_color "environment variables" '1;92') in $(myenv_lib_983459816_set_color "${envFilePath}" '0;31') have been $(myenv_lib_983459816_set_color "set")!"
     printf '\n'
   fi
 }
