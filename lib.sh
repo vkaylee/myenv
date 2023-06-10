@@ -1,5 +1,25 @@
 #!/usr/bin/env zsh
-# Namespace: start with myenv_lib_983459816_ and end with 
+# Namespace: start with myenv_lib_983459816_ and end with
+myenv_lib_983459816_set_color(){
+  local text="${1}"
+  local colorCode="${2}"
+  # Colors for text:
+    # Black        0;30     Dark Gray     1;30
+    # Red          0;31     Light Red     1;31
+    # Green        0;32     Light Green   1;32
+    # Brown/Orange 0;33     Yellow        1;33
+    # Blue         0;34     Light Blue    1;34
+    # Purple       0;35     Light Purple  1;35
+    # Cyan         0;36     Light Cyan    1;36
+    # Light Gray   0;37     White         1;37
+  # For a colored background: Color text + 10
+  # Example: "\e[1;31m This is red text \e[0m"
+  # Refer: https://en.wikipedia.org/wiki/ANSI_escape_code
+  local escapeString="\e[${colorCode}m"
+  # Print out with escape 
+  echo -e "${escapeString}${text}\e[0m"
+}
+
 # Define an array to store all guideline about all aliases
 myenv_lib_983459816_alias_array=()
 
@@ -79,17 +99,18 @@ myenv_lib_983459816_set_command_aliases(){
   local delimiter=','
 
   for command in ${aliasCommands[@]}; do
+    local commandTextStyle="$(myenv_lib_983459816_set_color "${command}" '1;31')"
     if myenv_lib_983459816_set_alias_command "${command}" "${realCommand}" > /dev/null 2>&1; then
       if [[ -n "${okAliasesStr}" ]]; then
-        okAliasesStr="${okAliasesStr}${delimiter}${command}"
+        okAliasesStr="${okAliasesStr}${delimiter}${commandTextStyle}"
       else
-        okAliasesStr="${command}"
+        okAliasesStr="${commandTextStyle}"
       fi
     else
       if [[ -n "${noOkAliasesStr}" ]]; then
-        noOkAliasesStr="${noOkAliasesStr}${delimiter}${command}"
+        noOkAliasesStr="${noOkAliasesStr}${delimiter}${commandTextStyle}"
       else
-        noOkAliasesStr="${command}"
+        noOkAliasesStr="${commandTextStyle}"
       fi
     fi
   done
