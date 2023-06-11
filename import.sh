@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+# Take process ID
+theCurrentPID=$$
 # Put this one into your shell load script
 ## Load customize configuration myenv
 #source "${HOME}/Documents/myenv/import.sh"
@@ -84,3 +86,6 @@ myenv_lib_983459816_set_command_aliases 'myenv' 'myenv_alias_helper_891726358916
 # Set MYENV_VERSION after loading
 MYENV_VERSION=$(git --git-dir="${MYENV_DIR}/.git" rev-parse --short HEAD)
 export MYENV_VERSION
+
+# print current process PID
+echo "Current process ID: $(myenv_lib_983459816_set_color ${theCurrentPID} '1;33')"
