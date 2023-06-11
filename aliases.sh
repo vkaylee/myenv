@@ -1,13 +1,13 @@
 #!/usr/bin/env zsh
 # Alias for docker-compose
-if [ "$(command -v docker-compose)" ]; then
-    myenv_lib_983459816_set_command_aliases 'docker-compose,dkc,docker compose' 'docker-compose' 'Docker compose'
-else
-    myenv_lib_983459816_set_command_aliases 'docker-compose,dkc,docker compose' 'docker compose' 'Docker compose'
+if myenv_lib_983459816_has_command "docker-compose"; then
+    myenv_lib_983459816_set_command_aliases 'docker compose,docker-compose,dkc' 'docker-compose' 'Docker compose'
+elif myenv_lib_983459816_has_command "docker compose"; then
+    myenv_lib_983459816_set_command_aliases 'docker compose,docker-compose,dkc' 'docker compose' 'Docker compose'
 fi
 
 # Some commands depend on docker cli and docker engine
-if [ "$(command -v docker)" ]; then
+if myenv_lib_983459816_has_command "docker"; then
     # AWS CLI
     # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
     # Set AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and AWS_DEFAULT_REGION in .env file first

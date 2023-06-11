@@ -55,12 +55,14 @@ myenv_lib_983459816_has_command(){
   # Usage: myenv_lib_983459816_has_command <command_name>
   # Check whether a command exists
   # $1 the actual command you want to check
-  # Aliases included by option -v
-  if command -v "$1" >/dev/null 2>&1; 
-  then
-    return 0 # exists
+  local command="${1}"
+  if grep -P '\s' <(echo "${command}") 1>/dev/null; then
+    eval "${command}" >/dev/null 2>&1
+    return $?
   fi
-  return 1 # does not exist
+  # Aliases included by option -v
+  command -v "${command}" >/dev/null 2>&1
+  return $?
 }
 myenv_lib_983459816_set_alias_command(){
   # Input:
