@@ -255,6 +255,13 @@ myenv_lib_983459816-docker_exec(){
       # Take stderr to err variable
       local the_docker_command="docker run --rm -it ${docker_args} ${image}"
       local the_command="${the_docker_command} ${query_args}"
+      # Load custom function to modify the_command for specific image
+      # Format: myenv_lib_983459816-docker_exec-<image>
+      # Image example: example:latest -> example, function will be: myenv_lib_983459816-docker_exec-example
+      local customFunction="${0}-$(grep -oP '[^:]+' <(echo $image))"
+      if typeset -f "${customFunction}" > /dev/null; then
+        the_command="$(eval "${customFunction}" "${the_command}")"
+      fi
       { err=$(eval "${the_command}" 2>&1 >&3 3>&-); } 3>&1
       errCode=$?
       if (( ${errCode} != 0 )); then
@@ -269,4 +276,10 @@ myenv_lib_983459816-docker_exec(){
     fi
     
     return ${errCode}
+}
+
+
+myenv_lib_983459816-docker_exec-example(){
+  local argvs="${@}"
+  echo "${argvs}"
 }
