@@ -248,7 +248,7 @@ myenv_lib_983459816-docker_exec(){
     shift 1
     local err=
     local errCode=0
-    if [[ "${@}" =~ "(.+)::end_docker::(.*)" ]]; then
+    if [[ "${@}" =~ "(.*)::end_docker::(.*)" ]]; then
       local docker_args="${match[1]}"
       local query_args="${match[2]}"
       # https://unix.stackexchange.com/questions/474177/how-to-redirect-stderr-in-a-variable-but-keep-stdout-in-the-console
