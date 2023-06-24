@@ -249,6 +249,24 @@ myenv_lib_983459816-docker_exec(){
     local err=
     local errCode=0
     if [[ "${@}" =~ "(.*)::end_docker::(.*)" ]]; then
+      # Do pulling image first
+      # Check for existing image
+      if ! docker image history "${image}" > /dev/null 2>&1; then
+        # Image does not exist, do pulling
+        $(docker pull "${image}" > /dev/null 2>&1) &
+        local pullPID=$!
+        echo "Do pulling the docker image ${image} at PID ${pullPID}"
+        wait $pullPID
+      else
+        # The image exists
+        # Check the image tag, if it is the latest, do pulling again in background
+        local imageTag=$(grep -oP '(?<=:)\w+$' <(echo "${image}"))
+        if [[ -z "${imageTag}" ]] || [[ "${imageTag}" == "latest" ]]; then
+          $(nohup docker pull "${image}" > /dev/null 2>&1) &
+          echo "Check update for the image ${image} at PID $!"
+        fi
+      fi
+
       local docker_args="${match[1]}"
       local query_args="${match[2]}"
       # https://unix.stackexchange.com/questions/474177/how-to-redirect-stderr-in-a-variable-but-keep-stdout-in-the-console

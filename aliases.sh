@@ -30,6 +30,9 @@ if myenv_lib_983459816_has_command "docker"; then
     myenv_lib_983459816_set_command_aliases 'mitmproxy,mitmp' ${MITMPROXYD}' mitmproxy -p ${MITM_PORT}' 'a man-in-the-middle proxy with a command-line interface'
     myenv_lib_983459816_set_command_aliases 'mitmdump,mitmd' ${MITMPROXYD}' mitmdump -p ${MITM_PORT}' 'mitmdump is the command-line companion to mitmproxy'
     myenv_lib_983459816_set_command_aliases 'mitmweb,mitmw' ${MITMPROXYD}' mitmweb -p ${MITM_PORT} --web-host 0.0.0.0 --web-port ${MITM_WEB_PORT}' 'a man-in-the-middle proxy with a web interface'
+
+    # Add ngrok
+    myenv_lib_983459816_set_command_aliases 'ngrok,nr' "myenv_lib_983459816-docker_exec ngrok/ngrok -e NGROK_AUTHTOKEN=\${NGROK_AUTHTOKEN} ::end_docker::" 'Serve Web Apps with one command'
 fi
 
 # Add kubectl
