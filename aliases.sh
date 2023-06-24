@@ -18,11 +18,11 @@ if myenv_lib_983459816_has_command "docker"; then
     fi
 
     # Add terraform
-    myenv_lib_983459816_set_command_aliases 'terraform,tf' "myenv_lib_983459816-docker_exec hashicorp/terraform:latest --name terraform -w /workspace -v \$(pwd):/workspace -v ${MYENV_APPCONFIG_DIR}/terraform:/root/.terraform.d ::end_docker::" 'Infrastructure as code (IAC) tool'
+    myenv_lib_983459816_set_command_aliases 'terraform,tf' "myenv_lib_983459816-docker_exec hashicorp/terraform:latest -w /workspace -v \$(pwd):/workspace -v ${MYENV_APPCONFIG_DIR}/terraform:/root/.terraform.d ::end_docker::" 'Infrastructure as code (IAC) tool'
     # Add google cloud cli
-    myenv_lib_983459816_set_command_aliases 'gcloud,gcli' "myenv_lib_983459816-docker_exec gcr.io/google.com/cloudsdktool/google-cloud-cli --name gcloud -e CLOUDSDK_CONFIG=/config/mygcloud -v ${MYENV_APPCONFIG_DIR}/google_cloud/mygcloud:/config/mygcloud -v ${MYENV_APPCONFIG_DIR}/google_cloud:/certs ::end_docker:: gcloud" 'Google cloud command line tool'
+    myenv_lib_983459816_set_command_aliases 'gcloud,gcli' "myenv_lib_983459816-docker_exec gcr.io/google.com/cloudsdktool/google-cloud-cli -e CLOUDSDK_CONFIG=/config/mygcloud -v ${MYENV_APPCONFIG_DIR}/google_cloud/mygcloud:/config/mygcloud -v ${MYENV_APPCONFIG_DIR}/google_cloud:/certs ::end_docker:: gcloud" 'Google cloud command line tool'
     myenv_lib_983459816_set_command_aliases 'gshell' 'gcloud cloud-shell ssh --authorize-session' 'Google cloud shell'
-    myenv_lib_983459816_set_command_aliases 'flyctl,flyio,fly' 'myenv_lib_983459816-docker_exec flyio/flyctl --name flyio -v ${MYENV_APPCONFIG_DIR}/flyio:/.fly -w /appspace -v $(pwd):/appspace ::end_docker::' 'Fly is a platform for running full stack apps and databases close to your users'
+    myenv_lib_983459816_set_command_aliases 'flyctl,flyio,fly' 'myenv_lib_983459816-docker_exec flyio/flyctl -v ${MYENV_APPCONFIG_DIR}/flyio:/.fly -w /appspace -v $(pwd):/appspace ::end_docker::' 'Fly is a platform for running full stack apps and databases close to your users'
     # Add mitmproxy
     MITMPROXYD='MITM_PORT=${MITM_PORT:-8080} && MITM_WEB_PORT=${MITM_WEB_PORT:-8081} && '
     MITMPROXYD=${MITMPROXYD}'MITM_PORT=$(myenv_lib_983459816_take_unuse_port $MITM_PORT) && MITM_WEB_PORT=$(myenv_lib_983459816_take_unuse_port $MITM_WEB_PORT) && '
