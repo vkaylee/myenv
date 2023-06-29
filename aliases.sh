@@ -33,6 +33,9 @@ if myenv_lib_983459816_has_command "docker"; then
 
     # Add ngrok
     myenv_lib_983459816_set_command_aliases 'ngrok,nr' "myenv_lib_983459816-docker_exec ngrok/ngrok -e NGROK_AUTHTOKEN=\${NGROK_AUTHTOKEN} ::end_docker::" 'Serve Web Apps with one command'
+
+    # Mkcert
+    myenv_lib_983459816_set_command_aliases 'mkcert' "myenv_lib_983459816-docker_exec vleedev/filosottile_mkcert:latest -v \$(pwd):/app ::end_docker::" 'Making locally-trusted development certificates'
 fi
 
 # Add kubectl
