@@ -262,8 +262,9 @@ myenv_lib_983459816-docker_exec(){
         # Check the image tag, if it is the latest, do pulling again in background
         local imageTag=$(grep -oP '(?<=:)\w+$' <(echo "${image}"))
         if [[ -z "${imageTag}" ]] || [[ "${imageTag}" == "latest" ]]; then
-          $(nohup docker pull "${image}" > /dev/null 2>&1) &
-          echo "Check update for the image ${image} at PID $!"
+          nohup docker pull "${image}" > /dev/null 2>&1 &
+          echo "Checking update for the image ${image} at PID $!"
+          disown # command removes the job from the shell's job control, preventing it from sending any notifications or signals to the terminal.
         fi
       fi
 
