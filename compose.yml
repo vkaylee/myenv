@@ -2,10 +2,6 @@ x-default-os-configuration:
   &default-os-configuration
   command: tail -f /dev/null
   user: docker
-  build:
-    context: .
-    dockerfile: Dockerfile
-    target: os
   volumes:
     - ./ci_test.sh:/ci_test.sh:rxo
   depends_on:
@@ -15,18 +11,27 @@ services:
   debian:
     <<: *default-os-configuration
     build:
+      context: .
       args:
         OS_NAME: debian
+      dockerfile: Dockerfile
+      target: os
   ubuntu:
     <<: *default-os-configuration
     build:
+      context: .
       args:
         OS_NAME: ubuntu
+      dockerfile: Dockerfile
+      target: os
   fedora:
     <<: *default-os-configuration
     build:
+      context: .
       args:
         OS_NAME: fedora
+      dockerfile: Dockerfile
+      target: os
   file-server:
     image: caddy
     volumes:
