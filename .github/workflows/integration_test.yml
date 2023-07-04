@@ -1,0 +1,18 @@
+name: Integration Testing
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  Integration_Test:
+    strategy:
+      matrix:
+        environment: [ debian, ubuntu, fedora ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prepare environment ${{ matrix.environment }}
+        run: docker compose up -d ${{ matrix.environment }}
+      - name: Run test for ${{ matrix.environment }}
+        run: docker compose exec ${{ matrix.environment }} /ci_test.sh docker http://file-server

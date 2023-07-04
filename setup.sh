@@ -6,7 +6,9 @@ if [[ -n "${MYENV_DEBUG}" ]]; then
 fi
 # Use this session to url when using curl wget to avoid caching
 MYENV_SESSION_TIME="$(date +%s)"
-github_url="https://raw.githubusercontent.com/vleedev/myenv/main"
+if [ -z "${fileDirUrl}" ]; then
+    fileDirUrl="https://raw.githubusercontent.com/vleedev/myenv/main"
+fi
 
 # The method to download and echo to current screen
 myenv_setup_663358564_load_script_url(){
@@ -33,7 +35,7 @@ done
 # Detect package manager first
 # Source the stdout, ignore stderr
 # shellcheck source=detection_scripts/package_manager.sh
-source <(myenv_setup_663358564_load_script_url "${github_url}/detection_scripts/package_manager.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
+source <(myenv_setup_663358564_load_script_url "${fileDirUrl}/detection_scripts/package_manager.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
 if [[ -z "${MYENV_PACKAGE_MANAGER}" ]]; then
   echo "Package manager is not found"
   exit 1
@@ -42,7 +44,7 @@ fi
 # Load utils
 # Source the stdout, ignore stderr
 # shellcheck source=package_managers/[package_manager].sh
-source <(myenv_setup_663358564_load_script_url "${github_url}/package_managers/${MYENV_PACKAGE_MANAGER}.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
+source <(myenv_setup_663358564_load_script_url "${fileDirUrl}/package_managers/${MYENV_PACKAGE_MANAGER}.sh?${MYENV_SESSION_TIME}" 2>/dev/null)
 
 # Install git
 myenv_package_managers_632264331_install git

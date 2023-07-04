@@ -1,9 +1,39 @@
+x-default-os-configuration:
+  &default-os-configuration
+  command: tail -f /dev/null
+  user: docker
+  volumes:
+    - ./ci_test.sh:/ci_test.sh:rxo
+  depends_on:
+    - file-server
+
 services:
-  ubuntu:
+  debian:
+    <<: *default-os-configuration
     build:
       context: .
+      args:
+        OS_NAME: debian
       dockerfile: Dockerfile
-      target: ubuntu
-    # command: tail -f /proc/1/fd/1
-    command: tail -f /dev/null
-    user: docker
+      target: os
+  ubuntu:
+    <<: *default-os-configuration
+    build:
+      context: .
+      args:
+        OS_NAME: ubuntu
+      dockerfile: Dockerfile
+      target: os
+  fedora:
+    <<: *default-os-configuration
+    build:
+      context: .
+      args:
+        OS_NAME: fedora
+      dockerfile: Dockerfile
+      target: os
+  file-server:
+    image: caddy
+    volumes:
+      - ./:/my_dir:ro
+    command: caddy file-server --browse --root /my_dir
