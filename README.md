@@ -1,4 +1,5 @@
 # MYENV development environment
+[![Integration Testing](https://github.com/vleedev/myenv/actions/workflows/integration_test.yml/badge.svg?branch=main)](https://github.com/vleedev/myenv/actions/workflows/integration_test.yml)
 ## Features
 - Set all environment variables to the shell session
     - `.env` in this directory (General variables)
