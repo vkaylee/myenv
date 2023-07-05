@@ -36,6 +36,9 @@ if myenv_lib_983459816_has_command "docker"; then
 
     # Mkcert
     myenv_lib_983459816_set_command_aliases 'mkcert' "myenv_lib_983459816-docker_exec vleedev/filosottile_mkcert:latest -v \$(pwd):/app -e CAROOT=/app ::end_docker::" 'Making locally-trusted development certificates'
+
+    # CTOP
+    myenv_lib_983459816_set_command_aliases 'ctop' "myenv_lib_983459816-docker_exec quay.io/vektorlab/ctop:latest --name=ctop -v /var/run/docker.sock:/var/run/docker.sock:ro ::end_docker::" 'Top-like interface for container metrics'
 fi
 
 # Add kubectl
