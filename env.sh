@@ -58,9 +58,13 @@ myenv_env_876892765_set_envs(){
       myenv_env_876892765_env_file_paths+=("${envFilePath}")
     fi
     set +a
+    # Notify user after sourcing all envs
     myenv_lib_983459816_typing_style_print "Some $(myenv_lib_983459816_set_color "environment variables" '1;92') in $(myenv_lib_983459816_set_color "${envFilePath}" '0;31') have been $(myenv_lib_983459816_set_color "set")!"
-    printf '\n'
+  else
+    # Notify user the way to override or add more envs to the current session
+    myenv_lib_983459816_typing_style_print "Override or add more $(myenv_lib_983459816_set_color "environment variables" '1;92') to $(myenv_lib_983459816_set_color "${envFilePath}" '0;31')"
   fi
+  printf '\n'
 }
 
 # Load root ENV
