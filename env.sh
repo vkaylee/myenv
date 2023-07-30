@@ -7,7 +7,7 @@ myenv_env_876892765_read_envs(){
   local filePath="${1-}"
   while read -r line; do
     echo "${line}"
-  done <<< "$(sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g" < "${filePath}")"
+  done <<< "$(sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/=\1/g" < "${filePath}")"
 }
 myenv_env_876892765_show_envs(){
   local envLines=()

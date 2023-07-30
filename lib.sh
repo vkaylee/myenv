@@ -242,6 +242,23 @@ myenv_lib_983459816_take_unuse_port() {
   return 1
 }
 
+# This method will prepare a format string like "-e ENVK1=ENVV1 -e ENVK2=ENVV2"
+myenv_lib_983459816-docker_mount_envs(){
+  local estring
+  estring=""
+  # Just load envs that is parsed by env.sh
+  # zsh syntax
+  for envKey envValue in "${(@kv)myenv_env_876892765_env_assarr}"; do
+    # If not empty
+    if [[ -n "${estring}" ]]; then
+      estring="${estring} -e ${envKey}=${envValue}"
+    else
+      estring="-e ${envKey}=${envValue}"
+    fi
+  done
+  echo "${estring}"
+}
+
 myenv_lib_983459816-docker_exec(){
     local original_cmd="${@}"
     local image=$1
@@ -269,6 +286,12 @@ myenv_lib_983459816-docker_exec(){
       fi
 
       local docker_args="${match[1]}"
+      local docker_arg_mount_envs
+      docker_arg_mount_envs="$(myenv_lib_983459816-docker_mount_envs)"
+      if [[ -n "${docker_arg_mount_envs}" ]]; then
+        # Put docker_arg_mount_envs after docker_args, override envs in docker_args if needed
+        docker_args="${docker_args} ${docker_arg_mount_envs}"
+      fi
       local query_args="${match[2]}"
       # https://unix.stackexchange.com/questions/474177/how-to-redirect-stderr-in-a-variable-but-keep-stdout-in-the-console
       # Take stderr to err variable
