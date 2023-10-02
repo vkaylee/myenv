@@ -52,6 +52,21 @@ myenv_package_managers_632264331_install git
 # Install zsh
 myenv_package_managers_632264331_install zsh
 
+# Install python3
+myenv_package_managers_632264331_install python3
+
+# Install python3-pip
+myenv_package_managers_632264331_install python3-pip
+
+# Install pipx
+
+if [ "$(command -v pip)" ]; then
+  if ! pip install --user pipx; then
+    python3 -m pip install --user pipx
+  fi
+fi
+
+
 USER_DIR="$(echo ~)"
 
 # make zsh as default shell for the user
