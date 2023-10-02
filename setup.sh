@@ -70,7 +70,7 @@ fi
 if [ "$(command -v pipx)" ]; then
   install_ansible(){
     local install_loop_count
-    install_loop_count=3
+    install_loop_count=1
     while true; do
       if pipx install --include-deps ansible; then
         break
@@ -78,8 +78,11 @@ if [ "$(command -v pipx)" ]; then
       if (( $(echo "${install_loop_count} >= 3" | bc -l) )); then
         break
       fi
+      # Increase install_loop_count
+      ((install_loop_count++))
     done
   }
+  install_ansible
 fi
 
 USER_DIR="$(echo ~)"
