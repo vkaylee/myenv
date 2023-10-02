@@ -4,6 +4,14 @@
 - Set all environment variables to the shell session
     - `.env` in this directory (General variables)
     - `.env.myenv` in your working directory (Specific variables). (Tip: you can create a symlink to your env file if you don't want to create a new file to store your env variable)
+- `myenv.sh` in your working directory will be loaded when your session start
+    - The file does not exist by default.
+    - Automatically when you start new shell session at a working directory.
+    - Manually when you run `myenv reload` command.
+    - Customize filename instead of `myenv.sh`, update your ENV `MYENV_CUSTOMIZATION_FILENAME`
+    - It has some advantages:
+        - Custom `PATH` env to your shell session.
+        - Other customizations that your want to load at a working directory.
 - Set `KUBECONFIG` env
 - Create some out of the box aliases
     - Docker compose: `docker-compose`, `dkc`, `docker compose`

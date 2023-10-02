@@ -10,6 +10,7 @@ MYENV_DIR=$(dirname "${this_file_path}")
 export MYENV_DIR
 MYENV_AUTOUPDATE=true
 export MYENV_AUTOUPDATE
+MYENV_CUSTOMIZATION_FILENAME="myenv.sh"
 # Load lib
 source "${MYENV_DIR}/lib.sh"
 # Load environments
@@ -38,6 +39,14 @@ find "${MYENV_DIR}/personal_scripts/" -maxdepth 1 -type f -name "*.sh" -printf '
 do
     source "${personal_script_path}"
 done
+
+# Load custom script in the working space directory
+if [ -f "$(pwd)/${MYENV_CUSTOMIZATION_FILENAME}" ]; then
+  # "File "$(pwd)/${MYENV_CUSTOMIZATION_FILENAME}" exists"
+  source "$(pwd)/${MYENV_CUSTOMIZATION_FILENAME}"
+  myenv_lib_983459816_typing_style_print "Custom script $(pwd)/${MYENV_CUSTOMIZATION_FILENAME} is loaded"; printf "\n"
+fi
+
 
 display_usage_2786926592856128937561728654782561829560735() {
   typeset -A argvs=()
