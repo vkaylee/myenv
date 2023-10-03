@@ -54,6 +54,7 @@ display_usage_2786926592856128937561728654782561829560735() {
   argvs[envs]='Show all envs are set by myenv'
   argvs[update]='Update myenv'
   argvs[reload]='Reload myenv'
+  argvs[install]='Install softwares'
 
 	myenv_lib_983459816_typing_style_print "Usage: myenv [$(myenv_lib_983459816_set_color 'arguments' '0;92')]"
 	printf "\n"
@@ -80,6 +81,10 @@ myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623
     ;;
   update)
     myenv_lib_983459816_update true
+    ;;
+  install)
+    shift 1
+    myenv_lib_983459816_install "${@}"
     ;;
   reload)
     exec "${SHELL}"

@@ -325,3 +325,59 @@ myenv_lib_983459816-docker_exec-example(){
   local argvs="${@}"
   echo "${argvs}"
 }
+
+ansible_playbook_func(){
+  # The option to let ansible ask your sudo password
+  local ansible_ask_become_pass_param
+  ansible_ask_become_pass_param="--ask-become-pass"
+  # Check if the user can run sudo without a password prompt
+  if sudo -n true 2>/dev/null; then
+    # Sudo can be run without a password prompt.
+    ansible_ask_become_pass_param=""
+  fi
+  ANSIBLE_CONFIG="${MYENV_DIR}/ansible_dir/ansible.cfg" ansible-playbook ${ansible_ask_become_pass_param} --flush-cache "$@"
+  return $?
+}
+
+ansible_inventory_func(){
+  ANSIBLE_CONFIG="${MYENV_DIR}/ansible_dir/ansible.cfg" ansible-inventory "$@"
+  return $?
+}
+
+ansible_galaxy_func(){
+  ANSIBLE_CONFIG="${MYENV_DIR}/ansible_dir/ansible.cfg" ansible-galaxy "$@"
+  return $?
+}
+
+# TODO: Currently we have some softwares depend on docker engine
+# Some softwares are not compatible to use in typical way when it's in a container
+# Planning to install them natively on host
+myenv_lib_983459816_install(){
+  local input="${1}"
+  local returnCode=
+  returnCode=0
+
+  case "${input}" in
+    bundle)
+      ANSIBLE_LOCALHOST_WARNING=False ansible_playbook_func "${MYENV_DIR}/ansible_dir/bundle.playbook.yml"
+    ;;
+    *)
+      returnCode=1
+      if [[ -z "${input}" ]]; then
+        echo "Your input is $(myenv_lib_983459816_set_color "empty" '1;31')"
+      else
+        echo "Your input: $(myenv_lib_983459816_set_color "${input}" '1;92')"
+        # Try to install the input, return to the result
+        # Pass input as install_package_name ansible variable
+        ANSIBLE_LOCALHOST_WARNING=False ansible_playbook_func --extra-vars "{'install_package_name':'${input}'}" "${MYENV_DIR}/ansible_dir/customize_installer.playbook.yml"
+        returnCode=$?
+      fi
+      if (( $(echo "${returnCode} != 0" | bc -l) )); then
+        echo "Currently input support: $(myenv_lib_983459816_set_color "bundle" '1;92')"
+      else
+        echo "The $(myenv_lib_983459816_set_color "${input}" '1;92') package has been $(myenv_lib_983459816_set_color "installed" '1;92')"
+      fi
+    ;;
+  esac
+  return ${returnCode}
+}

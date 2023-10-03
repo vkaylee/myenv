@@ -1,0 +1,5 @@
+# These tasks must be included by module ansible.builtin.include_tasks
+- name: Yum install {{ install_package_name }}
+  ansible.builtin.yum:
+    name: "{{ install_package_name }}"
+    state: present

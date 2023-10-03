@@ -1,0 +1,20 @@
+- name: Show some detections
+  ansible.builtin.import_playbook: detection.playbook.yml
+
+- name: "Try to install {{ install_package_name }}"
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  become: true
+  vars:
+    # Override this variable in command by: --extra-vars "{'install_package_name':'<your input>'}"
+    install_package_name: "non_package"
+  tasks:
+    - name: Use {{ ansible_pkg_mgr }}
+      ansible.builtin.include_tasks:
+        file: "tasks.{{ ansible_pkg_mgr }}.playbook.yml"
+      when:
+        - install_package_name is defined
+        - install_package_name != "non_package"
+        - ansible_pkg_mgr is defined
+        - ansible_pkg_mgr == "yum" or ansible_pkg_mgr == "dnf" or ansible_pkg_mgr == "apt"

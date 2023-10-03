@@ -1,0 +1,5 @@
+# These tasks must be included by module ansible.builtin.include_tasks
+- name: Dnf install {{ install_package_name }}
+  ansible.builtin.dnf:
+    name: "{{ install_package_name }}"
+    state: present
