@@ -38,3 +38,9 @@ git clone https://github.com/vleedev/myenv.git && \
 ```
 
 ## Manual install, go to -- [Installers](INSTALLERS.md)
+
+## Development
+### Run local test
+```shell
+./test.local.sh
+```

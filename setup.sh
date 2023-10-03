@@ -160,5 +160,11 @@ grep "${MYENV_DIR}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1 || tee -a "${ZSHRC
 source "${MYENV_DIR}/import.sh"
 EOF
 
-# Restart shell
-exec "$(which zsh)"
+# Restart shell session when the first input is not "test"
+if [[ "${1}" != "test" ]]; then
+  # Replace the current shell session by creating the new shell session
+  exec "$(which zsh)"
+else
+  # Simulate the way when zsh creates a new shell session
+  grep -qE 'Current process ID:.+[0-9]+' <("$(which zsh)" -c 'source $HOME/.zshrc')
+fi

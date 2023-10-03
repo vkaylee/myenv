@@ -102,4 +102,5 @@ MYENV_VERSION=$(git --git-dir="${MYENV_DIR}/.git" rev-parse --short HEAD)
 export MYENV_VERSION
 
 # print current process PID
+# This text will be the last end, it will be used for testing
 echo "Current process ID: $(myenv_lib_983459816_set_color ${theCurrentPID} '1;33')"
