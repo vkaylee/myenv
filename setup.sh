@@ -62,7 +62,9 @@ myenv_package_managers_632264331_install python3-pip
 
 if [ "$(command -v pip)" ]; then
   if ! pip install --user pipx; then
-    python3 -m pip install --user pipx
+    if ! python3 -m pip install --user pipx; then
+      myenv_package_managers_632264331_install pipx
+    fi
   fi
 fi
 
