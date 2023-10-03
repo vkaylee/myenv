@@ -12,6 +12,7 @@
     - It has some advantages:
         - Custom `PATH` env to your shell session.
         - Other customizations that your want to load at a working directory.
+- Manually install a pre-defined set of software by `myenv install <input>`
 - Set `KUBECONFIG` env
 - Create some out of the box aliases
     - Docker compose: `docker-compose`, `dkc`, `docker compose`

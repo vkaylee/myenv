@@ -1,0 +1,8 @@
+- name: Show some detections
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  tasks:
+    - name: Show package manager name
+      ansible.builtin.debug:
+        msg: "Package manager name: {{ ansible_pkg_mgr }}"

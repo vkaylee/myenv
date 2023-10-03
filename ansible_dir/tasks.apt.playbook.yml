@@ -1,0 +1,6 @@
+# These tasks must be included by module ansible.builtin.include_tasks
+- name: Apt install {{ install_package_name }}
+  ansible.builtin.apt:
+    name: "{{ install_package_name }}"
+    state: present
+    update_cache: true
