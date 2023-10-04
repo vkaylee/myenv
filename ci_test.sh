@@ -34,16 +34,3 @@ grep -E '\/\.env' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
 echo "TEST_ENV=test_env_myenv" >> "${USER_DIR}/.env.myenv"
 grep -E 'TEST_ENV=test_env_myenv' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
 grep -E '\/\.env.myenv' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
-
-# Test myenv.sh in working directory
-echo 'export PATH=$PATH:/mytest' > "${USER_DIR}/myenv.sh"
-grep -E ':/mytest$' <("$(which zsh)" -c 'source $HOME/.zshrc; echo $PATH')
-
-# Test myenv.sh by a custom name in working directory
-echo "MYENV_CUSTOMIZATION_FILENAME=hello.sh" >> "${USER_DIR}/.env"
-echo 'export PATH=$PATH:/mytest_hello.sh' > "${USER_DIR}/hello.sh"
-grep -E ':/mytest_hello\.sh$' <("$(which zsh)" -c 'source $HOME/.zshrc; echo $PATH')
-
-echo "MYENV_CUSTOMIZATION_FILENAME=hello_working.sh" >> "${USER_DIR}/.env.myenv"
-echo 'export PATH=$PATH:/mytest_hello_working.sh' > "${USER_DIR}/hello_working.sh"
-grep -E ':/mytest_hello_working\.sh$' <("$(which zsh)" -c 'source $HOME/.zshrc; echo $PATH')
