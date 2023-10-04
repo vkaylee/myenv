@@ -21,3 +21,16 @@ grep -E 'MYENV_APPCONFIG_DIR=\/home\/docker\/\.myenv\/appconfig$' <("$(which zsh
 grep -E 'MYENV_PACKAGE_MANAGER=\w+$' <("$(which zsh)" -c 'source $HOME/.zshrc; printenv')
 # Test MYENV_VERSION
 grep -E 'MYENV_VERSION=\w+$' <("$(which zsh)" -c 'source $HOME/.zshrc; printenv')
+
+# Test command: myenv
+grep -E 'Usage: myenv' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
+grep -E 'Current version:' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
+
+# Test command: myenv envs
+echo "TEST_ENV=test_env" >> "${USER_DIR}/.env"
+grep -E 'TEST_ENV=test_env' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
+grep -E '\/\.env' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
+
+echo "TEST_ENV=test_env_myenv" >> "${USER_DIR}/.env.myenv"
+grep -E 'TEST_ENV=test_env_myenv' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
+grep -E '\/\.env.myenv' <("$(which zsh)" -c 'source $HOME/.zshrc; myenv')
