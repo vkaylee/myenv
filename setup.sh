@@ -6,8 +6,13 @@ if [[ -n "${MYENV_DEBUG}" ]]; then
 fi
 # Use this session to url when using curl wget to avoid caching
 MYENV_SESSION_TIME="$(date +%s)"
+# ENV: fileDirUrl
 if [ -z "${fileDirUrl}" ]; then
     fileDirUrl="https://raw.githubusercontent.com/vleedev/myenv/main"
+fi
+# ENV: gitRepoUrl
+if [ -z "${gitRepoUrl}" ]; then
+  gitRepoUrl="https://github.com/vleedev/myenv.git"
 fi
 
 # The method to download and echo to current screen
@@ -77,7 +82,7 @@ if [ "$(command -v pipx)" ]; then
       if pipx install --include-deps ansible; then
         break
       fi
-      if (( $(echo "${install_loop_count} >= 3" | bc -l) )); then
+      if [[ ${install_loop_count} -gt 2 ]]; then
         break
       fi
       # Increase install_loop_count
@@ -143,8 +148,8 @@ if [[ -z "${MYENV_DIR}" ]]; then
   MYENV_DIR="${USER_DIR}/.myenv"
 fi
 
-if ! git clone https://github.com/vleedev/myenv.git "${MYENV_DIR}"; then
-  echo "Can not clone myenv to ${MYENV_DIR}"
+if ! git clone "${gitRepoUrl}" "${MYENV_DIR}"; then
+  echo "Can not clone ${gitRepoUrl} to ${MYENV_DIR}"
   exit 1
 fi
 

@@ -1,3 +1,6 @@
+volumes:
+  git_repo: {}
+
 x-default-os-configuration:
   &default-os-configuration
   command: tail -f /dev/null
@@ -32,8 +35,17 @@ services:
         OS_NAME: fedora
       dockerfile: Dockerfile
       target: os
+  # Mock git repo
+  git-tool:
+    image: bitnami/git:latest
+    command: rm -rf /git_repo/* && git clone --bare /local_repo /git_repo && cp -Rf /local_repo/.git /git_repo && cd /git_repo && git --bare update-server-info && sleep infinity
+    volumes:
+      - ./:/local_repo:ro
+      - git_repo:/git_repo
+  # Serve file-server and git repo
   file-server:
     image: caddy
     volumes:
-      - ./:/my_dir:ro
-    command: caddy file-server --browse --root /my_dir
+      - ./:/local_repo
+      - git_repo:/local_repo/test_project.git:ro
+    command: caddy file-server --browse --root /local_repo

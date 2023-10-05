@@ -94,6 +94,7 @@ myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623
     ;;
   esac
 }
+# echo "MYENV helper, try with command $(myenv_lib_983459816_set_color "myenv" '1;92')"
 myenv_lib_983459816_set_command_aliases 'myenv' 'myenv_alias_helper_8917263589165176548325478456735683745682746518273568127547623547265472549126354' 'MYENV helper, try with command' true
 
 

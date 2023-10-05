@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 input_user="$1"
 file_dir_url="$2"
+git_repo_url="$3"
 USER_DIR="/home/docker/.myenv"
 # Test setup
 # Run the setup script under a user
-sudo su -c "export fileDirUrl=\"${file_dir_url}\"; bash <(curl -sSL \"\${fileDirUrl}/setup.sh?\$(date +%s)\") test" "${input_user}"
+sudo su -c "export fileDirUrl=\"${file_dir_url}\"; export gitRepoUrl=\"${git_repo_url}\"; bash <(curl -sSL \"\${fileDirUrl}/setup.sh?\$(date +%s)\") test" "${input_user}"
 # Test MYENV_DIR, default: ~/.myenv
 grep -E 'MYENV_DIR=\/home\/docker\/\.myenv$' <("$(which zsh)" -c 'source $HOME/.zshrc; printenv')
 # Test MYENV_AUTOUPDATE, it will be true by default

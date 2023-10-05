@@ -23,6 +23,6 @@ for os in "${oses[@]}"; do
     docker compose down
     docker compose build "${os}"
     docker compose up -d "${os}"
-    docker compose exec "${os}" /ci_test.sh docker http://file-server
+    docker compose exec "${os}" /ci_test.sh docker http://file-server http://file-server/test_project.git
 done
 
