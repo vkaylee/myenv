@@ -49,3 +49,5 @@ services:
       - ./:/local_repo
       - git_repo:/local_repo/test_project.git:ro
     command: caddy file-server --browse --root /local_repo
+    depends_on:
+      - git-tool
