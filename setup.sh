@@ -171,5 +171,5 @@ if [[ "${1}" != "test" ]]; then
   exec "$(which zsh)"
 else
   # Simulate the way when zsh creates a new shell session
-  grep -qE 'Current process ID:.+[0-9]+' <("$(which zsh)" -c 'source $HOME/.zshrc')
+  grep -qE 'Current process ID:.+[0-9]+' <(zsh -i)
 fi
