@@ -171,5 +171,6 @@ if [[ "${1}" != "test" ]]; then
   exec "$(which zsh)"
 else
   # Simulate the way when zsh creates a new shell session
-  grep -qE 'Current process ID:.+[0-9]+' <(zsh -i)
+  # It should be gone with option: -c with simple action
+  grep -qE 'Current process ID:.+[0-9]+' <(zsh -i -c 'echo ok')
 fi
