@@ -38,7 +38,7 @@ services:
   # Mock git repo
   git-tool:
     image: bitnami/git:latest
-    command: rm -rf /git_repo/myenv && git clone --bare /local_repo /git_repo/myenv && cp -Rf /local_repo/.git /git_repo/myenv && cd /git_repo/myenv && git --bare update-server-info && echo "ok"
+    command: rm -rf /git_repo/myenv.git && git clone --bare /local_repo /git_repo/myenv.git && cp -Rf /local_repo/.git /git_repo/myenv.git && cd /git_repo/myenv.git && git --bare update-server-info && echo "ok"
     volumes:
       - ./:/local_repo:ro
       - git_repo:/git_repo
@@ -47,7 +47,7 @@ services:
     image: caddy
     volumes:
       - ./:/local_repo/files:ro
-      - git_repo:/local_repo/vleedev/myenv.git:ro
+      - git_repo:/local_repo/vleedev:ro
     command: caddy file-server --browse --root /local_repo
     depends_on:
       - git-tool
