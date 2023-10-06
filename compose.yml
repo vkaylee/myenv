@@ -38,7 +38,14 @@ services:
   # Mock git repo
   git-tool:
     image: bitnami/git:latest
-    command: rm -rf /git_repo/myenv.git && git clone --bare /local_repo /git_repo/myenv.git && cp -Rf /local_repo/.git /git_repo/myenv.git && cd /git_repo/myenv.git && git --bare update-server-info && echo "ok"
+    command:
+      - /bin/sh
+      - -c
+      - |
+        rm -rf /git_repo/myenv.git
+        git clone --bare /local_repo /git_repo/myenv.git
+        cp -Rf /local_repo/.git /git_repo/myenv.git
+        cd /git_repo/myenv.git && git --bare update-server-info
     volumes:
       - ./:/local_repo:ro
       - git_repo:/git_repo
