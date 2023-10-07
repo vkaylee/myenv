@@ -42,10 +42,23 @@ services:
       - /bin/sh
       - -c
       - |
-        rm -rf /git_repo/myenv.git
-        git clone --bare /local_repo /git_repo/myenv.git
-        cp -Rf /local_repo/.git /git_repo/myenv.git
-        cd /git_repo/myenv.git && git --bare update-server-info
+        # Remove status file
+        if [ -f "/git_repo/status" ]; then
+          rm -f /git_repo/status
+        fi
+        # Remove git repo
+        if [ -d "/git_repo/myenv.git" ]; then
+          rm -rf /git_repo/myenv.git
+        fi
+        # Setup git repo
+        if git clone --bare /local_repo /git_repo/myenv.git; then
+          if cp -Rf /local_repo/.git /git_repo/myenv.git; then
+            if cd /git_repo/myenv.git && git --bare update-server-info; then
+              echo "ok" > /git_repo/status
+            fi
+          fi
+        fi
+        
     volumes:
       - ./:/local_repo:ro
       - git_repo:/git_repo

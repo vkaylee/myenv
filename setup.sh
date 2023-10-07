@@ -151,6 +151,8 @@ fi
 if ! git clone "${gitRepoUrl}" "${MYENV_DIR}"; then
   echo "Can not clone ${gitRepoUrl} to ${MYENV_DIR}"
   exit 1
+else
+  echo "Clone ${gitRepoUrl} to ${MYENV_DIR}: ok"
 fi
 
 if ! grep "${MYENV_DIR}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1; then
