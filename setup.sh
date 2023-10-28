@@ -134,7 +134,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions "${zsh_autosuggestion
 ZSHRC_PATH="${USER_DIR}/.zshrc"
 if ! grep "zsh-autosuggestions" "${ZSHRC_PATH}" >/dev/null 2>&1; then
   # Add to plugins before loading oh-my-zsh
-  line_num=$(egrep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
+  line_num=$(grep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
   sed -i "${line_num} i plugins+=(zsh-autosuggestions)" "${ZSHRC_PATH}"
 fi
 
@@ -157,7 +157,7 @@ fi
 
 if ! grep "${MYENV_DIR}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1; then
   # Add to plugins before loading oh-my-zsh
-  line_num=$(egrep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
+  line_num=$(grep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
   sed -i "${line_num} i plugins+=(zsh-autosuggestions)" "${ZSHRC_PATH}"
 fi
 
