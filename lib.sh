@@ -100,9 +100,21 @@ myenv_lib_983459816_set_command_aliases(){
   local noOkAliasesStr=()
   local delimiter=','
 
-  for command in ${aliasCommands[@]}; do
-    local commandTextStyle="$(myenv_lib_983459816_set_color "${command}" '1;92')"
-    if myenv_lib_983459816_set_alias_command "${command}" "${realCommand}" > /dev/null 2>&1; then
+  # the first array index is different among shell
+  local firstArrayIndex
+  # default first index is zero
+  firstArrayIndex=0
+  # For zsh: first index is 1
+  test "$ZSH_VERSION" && firstArrayIndex=1
+  
+  for ((i=${firstArrayIndex}; i < ${#aliasCommands[@]} + ${firstArrayIndex}; i++)); do
+    # Just set real command to the first alias, the first alias will be set to aliases from the second if have
+    if (( i > ${firstArrayIndex} )); then
+      realCommand="${aliasCommands[firstArrayIndex]}"
+    fi
+    
+    local commandTextStyle="$(myenv_lib_983459816_set_color "${aliasCommands[i]}" '1;92')"
+    if myenv_lib_983459816_set_alias_command "${aliasCommands[i]}" "${realCommand}" > /dev/null 2>&1; then
       if [[ -n "${okAliasesStr}" ]]; then
         okAliasesStr="${okAliasesStr}${delimiter}${commandTextStyle}"
       else
