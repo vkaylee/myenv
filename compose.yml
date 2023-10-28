@@ -46,14 +46,30 @@ services:
         if [ -f "/git_repo/status" ]; then
           rm -f /git_repo/status
         fi
+
         # Remove git repo
         if [ -d "/git_repo/myenv.git" ]; then
           rm -rf /git_repo/myenv.git
         fi
+
+        # Remove /git_repo/myenv.raw
+        if [ -d "/git_repo/myenv.raw" ]; then
+          rm -rf /git_repo/myenv.raw
+        fi
+
+        # Copy to a new local_repo (/git_repo/myenv.raw)
+        cp -a /local_repo/ /git_repo/myenv.raw
+        # fatal: detected dubious ownership in repository at '/git_repo/myenv.raw'
+        # To add an exception for this directory, call:
+        git config --global --add safe.directory /git_repo/myenv.raw
+        # Apply new changes
+        git -C /git_repo/myenv.raw add .
+        git -C /git_repo/myenv.raw commit -m "new_changes"
+        
         # Setup git repo
-        if git clone --bare /local_repo /git_repo/myenv.git; then
-          if cp -Rf /local_repo/.git /git_repo/myenv.git; then
-            if cd /git_repo/myenv.git && git --bare update-server-info; then
+        if git clone --bare /git_repo/myenv.raw /git_repo/myenv.git; then
+          if cp -Rf /git_repo/myenv.raw/.git /git_repo/myenv.git; then
+            if git -C /git_repo/myenv.git --bare update-server-info; then
               echo "ok" > /git_repo/status
             fi
           fi
