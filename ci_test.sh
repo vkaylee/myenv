@@ -12,6 +12,10 @@ sudo su -c "export fileDirUrl=\"${file_dir_url}\"; export gitRepoUrl=\"${git_rep
 if [ ! -f "${USER_DIR}/.env" ]; then
     touch "${USER_DIR}/.env"
 fi
+# Create .env.myenv file if it does not have
+if [ ! -f "${USER_DIR}/.env.myenv" ]; then
+    touch "${USER_DIR}/.env.myenv"
+fi
 # To create isolated zsh session: use option '-i', every shell setting will be loaded automatically as usual
 # https://github.com/syl20bnr/spacemacs/issues/13401
 zsh_session_exec(){
