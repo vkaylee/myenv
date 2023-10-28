@@ -26,7 +26,7 @@ show_test(){
 }
 # Test MYENV_DIR, default: ~/.myenv
 show_test 'seeing MYENV_DIR, default: ~/.myenv'
-grep -E 'MYENV_DIR=\/home\/docker\/\.myenv$' <(zsh_session_exec 'printenv')
+grep -E 'MYENV_DIR=/home/docker/\.myenv$' <(zsh_session_exec 'printenv')
 # Test MYENV_AUTOUPDATE, it will be true by default
 show_test 'seeing MYENV_AUTOUPDATE=true'
 grep -E 'MYENV_AUTOUPDATE=true$' <(zsh_session_exec 'printenv')
@@ -44,7 +44,7 @@ echo "MYENV_AUTOUPDATE=false" >> "$(pwd)/.env.myenv"
 
 # Test MYENV_APPCONFIG_DIR
 show_test 'seeing MYENV_APPCONFIG_DIR env'
-grep -E 'MYENV_APPCONFIG_DIR=\/home\/docker\/\.myenv\/appconfig$' <(zsh_session_exec 'printenv')
+grep -E 'MYENV_APPCONFIG_DIR=/home/docker/\.myenv/appconfig$' <(zsh_session_exec 'printenv')
 # Test MYENV_PACKAGE_MANAGER
 show_test 'seeing MYENV_PACKAGE_MANAGER env'
 grep -E 'MYENV_PACKAGE_MANAGER=\w+$' <(zsh_session_exec 'printenv')
@@ -61,8 +61,8 @@ grep -E 'Current version:' <(zsh_session_exec 'myenv')
 show_test 'command, myenv envs'
 echo "TEST_ENV=test_env" >> "${USER_DIR}/.env"
 grep -E 'TEST_ENV=test_env' <(zsh_session_exec 'myenv')
-grep -E '\/\.env' <(zsh_session_exec 'myenv')
+grep -E '/\.env' <(zsh_session_exec 'myenv')
 
 echo "TEST_ENV=test_env_myenv" >> "${USER_DIR}/.env.myenv"
 grep -E 'TEST_ENV=test_env_myenv' <(zsh_session_exec 'myenv')
-grep -E '\/\.env.myenv' <(zsh_session_exec 'myenv')
+grep -E '/\.env.myenv' <(zsh_session_exec 'myenv')
