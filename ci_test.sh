@@ -3,6 +3,11 @@ input_user="$1"
 file_dir_url="$2"
 git_repo_url="$3"
 USER_DIR="/home/docker/.myenv"
+# Create .env file if it does not have
+if [ ! -f "${USER_DIR}/.env" ]; then
+    touch "${USER_DIR}/.env"
+fi
+
 # Test setup
 # Run the setup script under a user
 sudo su -c "export fileDirUrl=\"${file_dir_url}\"; export gitRepoUrl=\"${git_repo_url}\"; bash <(curl -sSL \"\${fileDirUrl}/setup.sh?\$(date +%s)\") test" "${input_user}"
