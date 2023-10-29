@@ -134,11 +134,14 @@ myenv_lib_983459816_set_command_aliases(){
 
 myenv_lib_983459816_confirm()
 {
-  read -r input
-  case "${input}" in
-    [Yy]* ) return 0;;
-    * ) return 1;;
-  esac
+  if read -t 10 -r input; then
+    case "${input}" in
+      [Yy]* ) return 0;;
+      * ) return 1;;
+    esac
+  fi
+  echo "you do not confirm"
+  return 1
 }
 
 myenv_lib_983459816_update(){

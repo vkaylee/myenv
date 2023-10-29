@@ -6,8 +6,13 @@ if [[ -n "${MYENV_DEBUG}" ]]; then
 fi
 # Use this session to url when using curl wget to avoid caching
 MYENV_SESSION_TIME="$(date +%s)"
+# ENV: fileDirUrl
 if [ -z "${fileDirUrl}" ]; then
     fileDirUrl="https://raw.githubusercontent.com/vleedev/myenv/main"
+fi
+# ENV: gitRepoUrl
+if [ -z "${gitRepoUrl}" ]; then
+  gitRepoUrl="https://github.com/vleedev/myenv.git"
 fi
 
 # The method to download and echo to current screen
@@ -77,7 +82,7 @@ if [ "$(command -v pipx)" ]; then
       if pipx install --include-deps ansible; then
         break
       fi
-      if (( $(echo "${install_loop_count} >= 3" | bc -l) )); then
+      if [[ ${install_loop_count} -gt 2 ]]; then
         break
       fi
       # Increase install_loop_count
@@ -129,7 +134,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions "${zsh_autosuggestion
 ZSHRC_PATH="${USER_DIR}/.zshrc"
 if ! grep "zsh-autosuggestions" "${ZSHRC_PATH}" >/dev/null 2>&1; then
   # Add to plugins before loading oh-my-zsh
-  line_num=$(egrep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
+  line_num=$(grep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
   sed -i "${line_num} i plugins+=(zsh-autosuggestions)" "${ZSHRC_PATH}"
 fi
 
@@ -143,14 +148,16 @@ if [[ -z "${MYENV_DIR}" ]]; then
   MYENV_DIR="${USER_DIR}/.myenv"
 fi
 
-if ! git clone https://github.com/vleedev/myenv.git "${MYENV_DIR}"; then
-  echo "Can not clone myenv to ${MYENV_DIR}"
+if ! git clone "${gitRepoUrl}" "${MYENV_DIR}"; then
+  echo "Can not clone ${gitRepoUrl} to ${MYENV_DIR}"
   exit 1
+else
+  echo "Clone ${gitRepoUrl} to ${MYENV_DIR}: ok"
 fi
 
 if ! grep "${MYENV_DIR}/import.sh" "${ZSHRC_PATH}" >/dev/null 2>&1; then
   # Add to plugins before loading oh-my-zsh
-  line_num=$(egrep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
+  line_num=$(grep -nE '^source .+oh-my-zsh\.sh' "${ZSHRC_PATH}" | sed 's/[^0-9]//g')
   sed -i "${line_num} i plugins+=(zsh-autosuggestions)" "${ZSHRC_PATH}"
 fi
 
@@ -166,5 +173,6 @@ if [[ "${1}" != "test" ]]; then
   exec "$(which zsh)"
 else
   # Simulate the way when zsh creates a new shell session
-  grep -qE 'Current process ID:.+[0-9]+' <("$(which zsh)" -c 'source $HOME/.zshrc')
+  # It should be gone with option: -c with simple action
+  grep -qE 'Current process ID:.+[0-9]+' <(zsh -i -c 'echo ok')
 fi

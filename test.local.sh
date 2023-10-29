@@ -23,6 +23,7 @@ for os in "${oses[@]}"; do
     docker compose down
     docker compose build "${os}"
     docker compose up -d "${os}"
-    docker compose exec "${os}" /ci_test.sh docker http://file-server
+    sleep 30 # delay a bit for sure all things are ready
+    docker compose exec "${os}" /ci_test.sh docker http://file-server/files http://file-server/vleedev/myenv.git
 done
 
